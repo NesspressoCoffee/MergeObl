@@ -1,8 +1,6 @@
 ﻿@model CommonSolutions.DTO.DtoVuelo
 
-@{
-    ViewBag.Title = "MostrarVuelos";
-}
+@{ ViewBag.Title = "MostrarVuelos"; }
 
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -17,7 +15,7 @@
 
             @using (Html.BeginForm("MostrarVuelos", "BuscarVuelos"))
             {
-                @Html.AntiForgeryToken() @Html.ValidationSummary(true, "")
+@Html.AntiForgeryToken() @Html.ValidationSummary(true, "")
 
                 <div class="container">
                     <div class="row" style="width:200%">
@@ -76,8 +74,7 @@
                         </div>
                     </div>
 
-                </div>
-            }
+                </div>            }
 
 
         </div>
@@ -93,240 +90,220 @@
 
                     if (ViewBag.directFlights_Ida != null && ViewBag.directFlights_Ida.Count > 0)
                     {
-                        <table class="display" id="tablaDVuelosIda" width="100%">
-                            <thead>
-                                <h2>Vuelos Directos</h2>
+    <table class="display" id="tablaDVuelosIda" width="100%">
+        <thead>
+            <h2>Vuelos Directos</h2>
 
 
-                                <tr>
-                                    <th>
+            <tr>
+                <th>
 
-                                    </th>
-                                    <th>
-                                        N° Vuelo
-                                    </th>
-                                    <th>
-                                        Origen
-                                    </th>
-                                    <th>
-                                        Destino
-                                    </th>
-                                    <th>
-                                        Duracion
-                                    </th>
-                                    <th>
-                                        Estado
-                                    </th>
+                </th>
+                <th>
+                    N° Vuelo
+                </th>
+                <th>
+                    Origen
+                </th>
+                <th>
+                    Destino
+                </th>
+                <th>
+                    Duracion
+                </th>
+                <th>
+                    Estado
+                </th>
 
-                                </tr>
-
-
-                            </thead>
-
-                            <tbody>
-
-                                @foreach (var item in ViewBag.directFlights_Ida)
-                                {
-
-                                    <tr>
-
-                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)"><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
-                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">@item.numeroVuelo</td>
-                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">
-                                            @item.origen<p></p>
-                                            @item.fechaSalida.TimeOfDay
-                                        </td>
-                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">
-                                            @item.destino<p></p>
-                                            @item.fechaLlegada.TimeOfDay
-                                        </td>
-                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">@item.horasVuelo</td>
-
-                                        <td>
-                                            @item.estado <br />  <input id="botonGrilla" type="button" value="Mejorar Precio" onclick="location.href='@Url.Action("GrillaPreciosVuelo", "BuscarVuelos", item )'" />
-                                        </td>
-                                    </tr>
+            </tr>
 
 
-                                }
-                            </tbody>
+        </thead>
 
-                        </table>
-                    }
+        <tbody>
+
+            @foreach (var item in ViewBag.directFlights_Ida)
+            {
+<tr class="clickable-row" data-href="@Url.Action("DetallarVuelo", "BuscarVuelos", new { id = item.idVuelo })">
+    <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+    <td>@item.numeroVuelo</td>
+    <td>
+        @item.origen<p></p>
+        @item.fechaSalida.TimeOfDay
+    </td>
+    <td>
+        @item.destino<p></p>
+        @item.fechaLlegada.TimeOfDay
+    </td>
+    <td>@item.horasVuelo</td>
+    <td>
+        @item.estado <br />  <input type="button" value="Mejorar Precio" onclick="location.href='@Url.Action("GrillaPreciosVuelo", "BuscarVuelos", item )'" />
+    </td>
+</tr>}
+        </tbody>
+
+    </table> }
+    <br />
                     <br />
-                    <br />
-                    <hr />
-                    if (ViewBag.escaleFlights_Ida != null && ViewBag.escaleFlights_Ida.Count >= 0)
-                    {
-                        <br />
-                        <table class="display" id="tablaEscVuelosIda" width="100%">
-                            <thead>
+                                    <hr /> if (ViewBag.escaleFlights_Ida != null && ViewBag.escaleFlights_Ida.Count >= 0)
+                                                    {
+                                    <br />
+                                                        <table class="display" id="tablaEscVuelosIda" width="100%">
+                                                            <thead>
 
-                                <h2>Vuelos con Escala</h2>
-                                <tr>
-                                    <th>
+                                                                <h2>Vuelos con Escala</h2>
+                                                                <tr>
+                                                                    <th>
 
-                                    </th>
-                                    <th>
-                                        N° Vuelo
-                                    </th>
-                                    <th>
-                                        Origen
-                                    </th>
-                                    <th>
-                                        Destino
-                                    </th>
-                                    <th>
-                                        Duracion
-                                    </th>
-                                    <th>
-                                        Estado
-                                    </th>
+                                                                    </th>
+                                                                    <th>
+                                                                        N° Vuelo
+                                                                    </th>
+                                                                    <th>
+                                                                        Origen
+                                                                    </th>
+                                                                    <th>
+                                                                        Destino
+                                                                    </th>
+                                                                    <th>
+                                                                        Duracion
+                                                                    </th>
+                                                                    <th>
+                                                                        Estado
+                                                                    </th>
 
-                                </tr>
+                                                                </tr>
 
-                            </thead>
+                                                            </thead>
 
-                            <tbody>
+                                                            <tbody>
 
-                                @foreach (var item in ViewBag.escaleFlights_Ida)
-                                {
-                                    <tr>
-                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
-                                        <td>@item.numeroVuelo</td>
-                                        <td>
-                                            @item.origen<p></p>
-                                            @item.fechaSalida.TimeOfDay
-                                        </td>
-                                        <td>
-                                            @item.destino<p></p>
-                                            @item.fechaLlegada.TimeOfDay
-                                        </td>
-                                        <td>@item.horasVuelo</td>
-                                        <td>@item.estado</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                                                @foreach (var item in ViewBag.escaleFlights_Ida)
+                                                                {
+                                            <tr>
+                                                <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                                <td>@item.numeroVuelo</td>
+                                                <td>
+                                                    @item.origen<p></p>
+                                                    @item.fechaSalida.TimeOfDay
+                                                </td>
+                                                <td>
+                                                    @item.destino<p></p>
+                                                    @item.fechaLlegada.TimeOfDay
+                                                </td>
+                                                <td>@item.horasVuelo</td>
+                                                <td>@item.estado</td>
+                                            </tr>}
+                                                            </tbody>
+                                                        </table> }
+                                                        <br />
+                                                                        <br />
+                                                                                        <hr /> if (ViewBag.directFlights_IdaVuelta != null && ViewBag.directFlights_IdaVuelta.Count >= 0)
+                                                                                                        {
+                                                                                        <br />
+                                                                                                            <table class="display" id="tablaDVuelosIdaVuelta" width="100%">
+                                                                                                                <thead>
+                                                                                                                    <h2>Vuelos Directos</h2>
+                                                                                                                    <tr>
+                                                                                                                        <th>
 
-                    }
-                    <br />
-                    <br />
-                    <hr />
-                    if (ViewBag.directFlights_IdaVuelta != null && ViewBag.directFlights_IdaVuelta.Count >= 0)
-                    {
-                        <br />
-                        <table class="display" id="tablaDVuelosIdaVuelta" width="100%">
-                            <thead>
-                                <h2>Vuelos Directos</h2>
-                                <tr>
-                                    <th>
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            N° Vuelo
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Origen
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Destino
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Duracion
+                                                                                                                        </th>
+                                                                                                                        <th>
+                                                                                                                            Estado
+                                                                                                                        </th>
 
-                                    </th>
-                                    <th>
-                                        N° Vuelo
-                                    </th>
-                                    <th>
-                                        Origen
-                                    </th>
-                                    <th>
-                                        Destino
-                                    </th>
-                                    <th>
-                                        Duracion
-                                    </th>
-                                    <th>
-                                        Estado
-                                    </th>
-
-                                </tr>
-                            </thead>
+                                                                                                                    </tr>
+                                                                                                                </thead>
 
 
-                            <tbody>
+                                                                                                                <tbody>
 
-                                @foreach (var item in ViewBag.directFlights_IdaVuelta)
-                                {
-                                    <tr>
-                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
-                                        <td>@item.numeroVuelo</td>
-                                        <td>
-                                            @item.origen<p></p>
-                                            @item.fechaSalida.TimeOfDay
-                                        </td>
-                                        <td>
-                                            @item.destino<p></p>
-                                            @item.fechaLlegada.TimeOfDay
-                                        </td>
-                                        <td>@item.horasVuelo</td>
-                                        <td>@item.estado</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                                                                                                    @foreach (var item in ViewBag.directFlights_IdaVuelta)
+                                                                                                                    {
+                                                                                                <tr>
+                                                                                                    <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                                                                                    <td>@item.numeroVuelo</td>
+                                                                                                    <td>
+                                                                                                        @item.origen<p></p>
+                                                                                                        @item.fechaSalida.TimeOfDay
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        @item.destino<p></p>
+                                                                                                        @item.fechaLlegada.TimeOfDay
+                                                                                                    </td>
+                                                                                                    <td>@item.horasVuelo</td>
+                                                                                                    <td>@item.estado</td>
+                                                                                                </tr>}
+                                                                                                                </tbody>
+                                                                                                            </table> }
+                                                                                                            <br />
+                                                                                                                            <br />
+                                                                                                                                            <hr /> if (ViewBag.escaleFlights_IdaVuelta != null && ViewBag.escaleFlights_IdaVuelta.Count >= 0)
+                                                                                                                                                            {
+                                                                                                                                            <br />
+                                                                                                                                                                <table class="display" id="tablaEscVuelosIdaVuelta" width="100%">
+                                                                                                                                                                    <thead>
+                                                                                                                                                                        <h2>Vuelos con Escala</h2>
+                                                                                                                                                                        <tr>
+                                                                                                                                                                            <th>
 
-                    }
-                    <br />
-                    <br />
-                    <hr />
-                    if (ViewBag.escaleFlights_IdaVuelta != null && ViewBag.escaleFlights_IdaVuelta.Count >= 0)
-                    {
-                        <br />
-                        <table class="display" id="tablaEscVuelosIdaVuelta" width="100%">
-                            <thead>
-                                <h2>Vuelos con Escala</h2>
-                                <tr>
-                                    <th>
+                                                                                                                                                                            </th>
+                                                                                                                                                                            <th>
+                                                                                                                                                                                N° Vuelo
+                                                                                                                                                                            </th>
+                                                                                                                                                                            <th>
+                                                                                                                                                                                Origen
+                                                                                                                                                                            </th>
+                                                                                                                                                                            <th>
+                                                                                                                                                                                Destino
+                                                                                                                                                                            </th>
+                                                                                                                                                                            <th>
+                                                                                                                                                                                Duracion
+                                                                                                                                                                            </th>
+                                                                                                                                                                            <th>
+                                                                                                                                                                                Estado
+                                                                                                                                                                            </th>
 
-                                    </th>
-                                    <th>
-                                        N° Vuelo
-                                    </th>
-                                    <th>
-                                        Origen
-                                    </th>
-                                    <th>
-                                        Destino
-                                    </th>
-                                    <th>
-                                        Duracion
-                                    </th>
-                                    <th>
-                                        Estado
-                                    </th>
+                                                                                                                                                                        </tr>
+                                                                                                                                                                    </thead>
 
-                                </tr>
-                            </thead>
+                                                                                                                                                                    <tbody>
 
-                            <tbody>
+                                                                                                                                                                        @foreach (var item in ViewBag.escaleFlights_IdaVuelta)
+                                                                                                                                                                        {
+                                                                                                                                                    <tr>
+                                                                                                                                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                                                                                                                                        <td>@item.numeroVuelo</td>
+                                                                                                                                                        <td>
+                                                                                                                                                            @item.origen<p></p>
+                                                                                                                                                            @item.fechaSalida.TimeOfDay
+                                                                                                                                                        </td>
+                                                                                                                                                        <td>
+                                                                                                                                                            @item.destino<p></p>
+                                                                                                                                                            @item.fechaLlegada.TimeOfDay
+                                                                                                                                                        </td>
+                                                                                                                                                        <td>@item.horasVuelo</td>
+                                                                                                                                                        <td>@item.estado</td>
+                                                                                                                                                    </tr>}
+                                                                                                                                                                    </tbody>
+                                                                                                                                                                </table> }
+                                                                                                                                                                            }
 
-                                @foreach (var item in ViewBag.escaleFlights_IdaVuelta)
-                                {
-                                    <tr>
-                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
-                                        <td>@item.numeroVuelo</td>
-                                        <td>
-                                            @item.origen<p></p>
-                                            @item.fechaSalida.TimeOfDay
-                                        </td>
-                                        <td>
-                                            @item.destino<p></p>
-                                            @item.fechaLlegada.TimeOfDay
-                                        </td>
-                                        <td>@item.horasVuelo</td>
-                                        <td>@item.estado</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-
-                    }
-                }
-
-                else
-                {
-                    <h1>Sin resultados</h1>
-                }
+                                                                                                                                                                            else
+                                                                                                                                                                            {
+                                                                                                                                                                <h1>Sin resultados</h1>}
             </div>
         </div>
     </div>
@@ -343,13 +320,6 @@
     </script>
 
     <script>
-
-        function mostrarDetalle(idVuelo, avionId) {
-            
-            window.location.assign("/BuscarVuelos/DetallarVuelo?idVuelo=" + idVuelo + "&avionId=" + avionId);
-
-        };
-
         $(function () {
 
             $('#idVuel').change(function () {
@@ -370,12 +340,7 @@
         });
 
 
+
     </script>
 
 }
-<style>
-    tr:hover td {
-        background: #808080;
-        cursor: pointer;
-    }
-</style>

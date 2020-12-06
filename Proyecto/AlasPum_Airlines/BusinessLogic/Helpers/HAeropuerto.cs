@@ -27,16 +27,6 @@ namespace BusinessLogic.Helpers
             return instance;
         }
 
-        public List<DtoAeropuerto> GetVuelosByLugar(string locacion)
-        {
-            PAeropuerto pa = new PAeropuerto();
-
-            List<DtoAeropuerto> locaciones = pa.GetLugares(locacion);
-
-            return locaciones;
-
-        }
-
 
         public bool AddAeropuerto(DtoAeropuerto dto, string user)
         {
@@ -46,10 +36,19 @@ namespace BusinessLogic.Helpers
             if (!existe)
             {
                 pa.AddAeropuerto(dto);
-                HEmpleado.getInstance().addAccionEmpleado("Alta", DateTime.Now, user, null, null, dto.abreviatura);
             }
 
             return existe;
+        }
+
+        public List<DtoAeropuerto> GetVuelosByLugar(string locacion)
+        {
+            PAeropuerto pa = new PAeropuerto();
+
+            List<DtoAeropuerto> locaciones = pa.GetLugares(locacion);
+
+            return locaciones;
+
         }
 
         public List<DtoAeropuerto> ListarAeros()
@@ -68,11 +67,14 @@ namespace BusinessLogic.Helpers
             return dto;
         }
 
-        public void modificarTasa(string codigo, double regio, double inter, string user)
+        public void modificarTasa(string codigoAirport, double tasaRegional, double tasaInter, string user)
         {
             PAeropuerto pa = new PAeropuerto();
-            pa.UpdateTasa(codigo, regio, inter);
-            HEmpleado.getInstance().addAccionEmpleado("Modificacion", DateTime.Now, user, null, null, codigo);
+            DtoHistoricoTasa dto = new DtoHistoricoTasa();
+            dto.codigoAirport = codigoAirport;
+            dto.tasaRegional = tasaRegional;
+            dto.tasaInter = tasaInter;
+            pa.UpdateTasa(dto);
         }
 
         public DtoHistoricoTasa GetTasaByCode(string codigo)
@@ -85,23 +87,20 @@ namespace BusinessLogic.Helpers
         {
             PAeropuerto pa = new PAeropuerto();
             pa.DeshabilitarAero(codigo);
-            HEmpleado.getInstance().addAccionEmpleado("Baja", DateTime.Now, user, null, null, codigo);
         }
 
         public void HabilitarAirport(string codigo, string user)
         {
             PAeropuerto pa = new PAeropuerto();
             pa.HabilitarAero(codigo);
-            HEmpleado.getInstance().addAccionEmpleado("Alta", DateTime.Now, user, null, null, codigo);
         }
 
         public bool ValidarCodigo(string codigo)
         {
             PAeropuerto pa = new PAeropuerto();
-        return  pa.ValidarAero(codigo);
+            return pa.ValidarAero(codigo);
         }
-        
+
 
     }
 }
-

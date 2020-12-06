@@ -12,7 +12,6 @@ namespace CommonSolutions.DTO
         public double precioPremium { get; set; }
         public double precioBusiness { get; set; }
         public double precioFirstClass { get; set; }
-        public int avionId { get; set; }
         public int vueloId { get; set; }
     }
 }

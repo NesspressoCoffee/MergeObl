@@ -12,25 +12,23 @@ namespace DataAccess.Mappers
         public DtoAsiento MapToDto(Asiento obj)
         {
             DtoAsiento dto = new DtoAsiento();
-
-            dto.numeroAsiento = obj.numeroAsiento;
             dto.categoria = obj.categoria;
             dto.disponible = obj.disponible;
             dto.idAvion = obj.avionId;
-          
+            dto.numeroAsiento = obj.numeroAsiento;
+
             return dto;
         }
 
         public Asiento MapToObj(DtoAsiento dto)
         {
             Asiento obj = new Asiento();
-            obj.numeroAsiento = dto.numeroAsiento;
             obj.categoria = dto.categoria;
             obj.disponible = dto.disponible;
             obj.avionId = dto.idAvion;
+            obj.numeroAsiento = dto.numeroAsiento;
 
             return obj;
         }
     }
 }
-

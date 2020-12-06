@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Helpers;
+using BusinessLogic.Patrones;
 using CommonSolutions.DTO;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,16 @@ namespace AlasPum_Airlines.Controllers
     [Authorize]
     public class EmpleadoController : Controller
     {
+        private Fachada fachada;
+
+        public EmpleadoController()
+        {
+            fachada = new Fachada();
+        }
         // GET: Empleado
         public ActionResult AdminEmpleados()
         {
-            List<DtoEmpleado> colUsuarios = HEmpleado.getInstance().ListarEmpleados();
+            List<DtoEmpleado> colUsuarios = fachada.ListarEmpleados();
             ViewBag.colUsuarios = colUsuarios;
             return View();
         }
@@ -22,21 +29,21 @@ namespace AlasPum_Airlines.Controllers
         public ActionResult AddEmpleado(DtoEmpleado dto)
         {
 
-            HEmpleado.getInstance().AddEmpleado(dto, Session["User"].ToString());
+            fachada.AddEmpleado(dto, Session["User"].ToString());
             ModelState.Clear();
             return RedirectToAction("AdminEmpleados");
         }
 
         public ActionResult GetEmpleadoByData(string data)
         {
-            List<DtoEmpleado> colUsuarios = HEmpleado.getInstance().GetEmpleadosByData(data);
+            List<DtoEmpleado> colUsuarios = fachada.GetEmpleadosByData(data);
             ViewBag.colUsuarios = colUsuarios;
             return View();
         }
 
         public ActionResult BajaEmpleado(string usuario)
         {
-            HEmpleado.getInstance().BajaEmpleado(usuario);
+            fachada.BajaEmpleado(usuario);
 
             if (Session["User"].ToString() == usuario || Session["User"].ToString() == null)
             {
@@ -48,7 +55,7 @@ namespace AlasPum_Airlines.Controllers
 
         public JsonResult UserAvailable(string documentoEmpleado)
         {
-            bool ok = HEmpleado.getInstance().ValidarUser(documentoEmpleado);
+            bool ok = fachada.ValidarUser(documentoEmpleado);
 
             if (ok == true)
             {

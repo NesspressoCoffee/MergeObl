@@ -1,112 +1,99 @@
 ﻿@model CommonSolutions.DTO.DtoEmpleado
 
-@{
-    ViewBag.Title = "AdminEmpleados";
-}
+@{ ViewBag.Title = "AdminEmpleados"; }
+<link href="~/Content/CSS/Empleados.css" rel="stylesheet" />
 
-<h2 style="text-align: center; margin:5% 0 5% 5%">Panel de Usuarios</h2>
+<h2>Empleados</h2>
+<p class="botonArriba">
+    <a class="botonArriba" href="@Url.Action("Admin", "Home")">Menu</a>
+    <a href="@Url.Action("LogOut", "Login")" class="notification">Salir</a>
+</p>
+<hr />
 
-<div class="container">
-    <div class="row" style="margin-left:10%">
-        <div class="col">
+@Html.AntiForgeryToken()
+@using (Html.BeginForm("AddEmpleado", "Empleado"))
+{
 
-
-            @using (Html.BeginForm("AddEmpleado", "Empleado"))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-horizontal" style="width:350px">
-                    <h4>Agregar Empleado</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.documentoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.documentoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.documentoEmpleado, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.nombreEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.nombreEmpleado, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.nombreEmpleado, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.apellidoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.apellidoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.apellidoEmpleado, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.contrasenia, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.contrasenia, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="submit" class="btn btn-light">Ingresar</button>
-                        </div>
-                    </div>
-                </div>
-            }
-
-        </div>
-
-
-        <div class="col">
-
-
-            <table>
-                <tbody>
-                    <tr>
-                        @using (@Html.BeginForm("GetEmpleadoByData", "Empleado"))
-                        {
-
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="data" placeholder="Buscar..." style="margin: auto auto 2% auto; border-radius: 3px; max-width: 81%; padding: 5px 5px 5px 5px;">
-                            </div>
-                        }
-                        <th>Usuario</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Tarea</th>
-
-
-                    </tr>
-
-                    @foreach (var item in ViewBag.colUsuarios)
-                    {
-                        <tr>
-                            <td>@item.documentoEmpleado</td>
-                            <td>@item.nombreEmpleado</td>
-                            <td>@item.apellidoEmpleado</td>
-                            <td>@Html.ActionLink("Eliminar", "BajaEmpleado", new { usuario = item.documentoEmpleado })</td>
-                        </tr>
-                    }
-
-                </tbody>
-            </table>
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.documentoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.documentoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.documentoEmpleado, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombreEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.nombreEmpleado, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.nombreEmpleado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.apellidoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.apellidoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.apellidoEmpleado, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.contrasenia, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Ingresar</button>
+        </div>
+    </div>
+</div>}
+
+
+
+
+<div class="col">
+
+
+    @*<div class="input-group">
+            <input type="text" class="form-control" name="data" placeholder="Buscar..." style="margin: auto auto 2% auto; border-radius: 3px; max-width: 81%; padding: 5px 5px 5px 5px;">
+        </div>*@
+    <table>
+        <tbody>
+            <tr>
+                @using (@Html.BeginForm("GetEmpleadoByData", "Empleado"))
+                {
+
+                }
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Accion</th>
+
+
+            </tr>
+
+            @foreach (var item in ViewBag.colUsuarios)
+            {
+<tr>
+    <td>@item.documentoEmpleado</td>
+    <td>@item.nombreEmpleado</td>
+    <td>@item.apellidoEmpleado</td>
+    <td>@Html.ActionLink("Borrar", "BajaEmpleado", new { usuario = item.documentoEmpleado })</td>
+</tr>
+}
+
+        </tbody>
+    </table>
 </div>
 
-
-<style>
-    table, th, td {
-        border: 1px solid #b7b4b4;
-        border-collapse: collapse;
-        text-align: center;
-        padding: 5px 5px 5px 5px;
-        margin: auto;
-        max-width: 80%;
-    }
-</style>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/AppScripts/manAvion.js"></script>
+}

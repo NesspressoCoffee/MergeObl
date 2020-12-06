@@ -12,9 +12,9 @@ namespace CommonSolutions.DTO
     {
         [DisplayName("Documento")]
         [Required(ErrorMessage = "El {0} es requerido!")]
-         public string documentoEmpleado { get; set; }
+        public string documentoEmpleado { get; set; }
 
-    
+
         [Display(Name = "Contraseña")]
         [Required(ErrorMessage = "La {0} es requerida!")]
         [StringLength(15, ErrorMessage = "Longitud no puede exceder los 20 caracteres.",

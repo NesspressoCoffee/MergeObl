@@ -1,5 +1,6 @@
 create database alasdb;
 use alasdb;
+use SergioMostro;
 
 create table Avion(
 idAvion int Primary key not null Identity(1,1),
@@ -122,11 +123,11 @@ foreign key (IDPasaje) references Pasaje(idPasaje),
 foreign key (IDCompra) references Compra(idCompra),
 constraint pkCompraPasaje Primary Key (IDPasaje, IDCompra)
 );
-
+*/
 
 create table VideoAvion(
-urlVideo varchar(200),
-video blob,
-modeloAvion varchar(20) not null,
-foreign key (modeloAvion) references Avion(modelo)
-);*/
+urlVideo varchar(200) not null,
+video varchar(50) not null,
+modeloAvion varchar(20) not null Primary Key
+);
+

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommonSolutions.DTO
 {
-   public class DtoPasaje
+    public class DtoPasaje
     {
 
         public int idPasaje { get; set; }
@@ -17,7 +17,6 @@ namespace CommonSolutions.DTO
         public int compraId { get; set; }
         public int asientoNumero { get; set; }
         public int avionId { get; set; }
-       
 
     }
 }

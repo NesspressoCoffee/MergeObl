@@ -28,20 +28,42 @@ namespace DataAccess.Persistencia
             return mapper.MapToDto(precios);
         }
 
+        public void addPrecioCategoria(List<DtoPrecioCategoria> listDto)
+        {
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                foreach (DtoPrecioCategoria dto in listDto)
+                {
+                    context.PrecioCategoria.Add(mapper.MapToObj(dto));
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public void modifyPrecioCategoria(DtoPrecioCategoria dto)
+        {
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                PrecioCategoria obj = context.PrecioCategoria.Where(w =>  w.vueloId == dto.vueloId).FirstOrDefault();
+                obj.precioBusiness = dto.precioBusiness;
+                obj.precioEconomy = dto.precioEconomy;
+                obj.precioFirstClass = dto.precioFirstClass;
+                obj.precioPremium = dto.precioPremium;
+
+                context.SaveChanges();
+            }
+        }
+
         public List<DtoVuelo> GetPreciosCategoriasByFecha(string numVuelo, DateTime fecha)
         {
             List<DtoVuelo> preciosCat = new List<DtoVuelo>();
             DateTime fecha7 = fecha.AddDays(7);
-            List<string> estados = new List<string>();
-            estados.Add("Programado");
-            estados.Add("En Vuelo");
-            estados.Add("Abordando");
 
-            List<DtoVuelo> dtoVuelos = new List<DtoVuelo>().ToList();
+            List<DtoVuelo> dtoVuelos = new List<DtoVuelo>();
 
             using (alasdbEntities context = new alasdbEntities())
             {
-                List<Vuelo> vuelos = context.Vuelo.Where(w => w.numeroVuelo == numVuelo && estados.Contains(w.estado) && w.fechaSalida >= fecha && w.fechaSalida <= fecha7).OrderBy(o => o.fechaSalida).ToList();
+                List<Vuelo> vuelos = context.Vuelo.Where(w => w.numeroVuelo == numVuelo && w.estado != "Cancelado" && (w.fechaSalida >= fecha || w.fechaSalida <= fecha7)).OrderBy(o => o.fechaSalida).Take(7).ToList();
 
                 MVuelo mv = new MVuelo();
 
@@ -52,23 +74,21 @@ namespace DataAccess.Persistencia
 
             }
 
+            List<DtoVuelo> nuevoVuelo = new List<DtoVuelo>();
+
             for (int i = 0; i < 7; i++)
             {
-                if (dtoVuelos.Any(a => a.fechaSalida.Date == fecha.Date.AddDays(i)))
-                {
 
-                }
-                else
-                {
-                    DtoVuelo nuevoDto = new DtoVuelo();
-                    nuevoDto.fechaSalida = fecha.Date.AddDays(i);
-                    nuevoDto.numeroVuelo = numVuelo;
-                    dtoVuelos.Add(nuevoDto);
-                }
-
+                DtoVuelo nuevoDto = new DtoVuelo();
+                nuevoDto.fechaSalida = fecha.Date.AddDays(i);
+                nuevoDto.numeroVuelo = numVuelo;
+                nuevoVuelo.Add(nuevoDto);
             }
 
-            foreach (DtoVuelo item in dtoVuelos.ToList())
+            IEnumerable<DtoVuelo> firstNotSecond = dtoVuelos.Except(nuevoVuelo).ToList().Union(nuevoVuelo.Except(dtoVuelos).ToList());
+
+
+            foreach (DtoVuelo item in firstNotSecond.ToList())
             {
                 if (item.idVuelo != 0)
                 {
@@ -78,19 +98,21 @@ namespace DataAccess.Persistencia
                     item.precioCat.precioFirstClass = GetPreciosByIdVuelo(item.idVuelo).precioFirstClass;
                     preciosCat.Add(item);
 
+
                 }
-                else
+                else if (item.fechaSalida.Date != preciosCat[0].fechaSalida.Date && item.fechaSalida.Date != preciosCat[1].fechaSalida.Date)
                 {
+
                     preciosCat.Add(item);
                 }
             }
 
-            var preciosVuelos = preciosCat.OrderBy(o => o.fechaSalida.Date).ToList().Take(7);
-            return preciosVuelos.ToList();
+            var precios = preciosCat.OrderBy(o => o.fechaSalida.Date).ToList();
+
+
+            return precios.ToList();
+
 
         }
-
-
     }
 }
-

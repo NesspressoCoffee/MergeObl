@@ -14,7 +14,6 @@ namespace CommonSolutions.DTO
         public string docEmpleado { get; set; }
         public Nullable<int> avionId { get; set; }
         public int? vueloId { get; set; }
-
         public string abreviaturaAeropuerto { get; set; }
 
         public DtoAccionEmpleado(string tipoModificacion, DateTime fecha, string docEmpleado, int? avionId, int? vueloId, string abreviaturaAeropuerto)

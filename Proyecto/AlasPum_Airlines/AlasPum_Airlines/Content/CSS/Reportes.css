@@ -1,0 +1,51 @@
+﻿body {
+    background-color: dimgray;
+    text-align: center;
+}
+
+h1 {
+    color: black;
+}
+
+p {
+    color: white;
+}
+
+#inputs {
+    text-align: center;
+    margin-top: 60px;
+}
+
+
+input {
+    background-color: transparent;
+    color: white;
+    border: none;
+    text-align: right;
+}
+
+.lbl {
+    color: black;
+    margin-left: 20px;
+    text-align: left;
+    font-weight: bold;
+}
+
+    input:focus {
+        outline: none
+    }
+
+.submit {
+    color: black;
+}
+
+.fecha {
+    border: medium;
+    background-color: white;
+    color: black;
+}
+
+.divForm{
+    margin-top: 50px;
+}
+

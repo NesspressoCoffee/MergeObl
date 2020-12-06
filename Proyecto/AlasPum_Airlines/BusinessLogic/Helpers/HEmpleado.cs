@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace BusinessLogic.Helpers
 {
     public class HEmpleado
@@ -34,13 +33,6 @@ namespace BusinessLogic.Helpers
             PEmpleado pe = new PEmpleado();
             pe.AddEmpleado(dto);
 
-        }
-
-        public void addAccionEmpleado(string tipoModificacion, DateTime fecha, string docEmpleado, int? avionId, int? vueloId, string abreviaturaAeropuerto)
-        {
-            DtoAccionEmpleado dto = new DtoAccionEmpleado(tipoModificacion, fecha, docEmpleado, avionId, vueloId, abreviaturaAeropuerto);
-            PEmpleado pe = new PEmpleado();
-            pe.addAccionEmpleado(dto);
         }
 
         public List<DtoEmpleado> ListarEmpleados()
@@ -74,18 +66,22 @@ namespace BusinessLogic.Helpers
             return dto;
         }
 
-        public void UpdateEmpleado(DtoEmpleado dto, string user)
+        public void UpdateEmpleado(DtoEmpleado dto)
         {
             PEmpleado pe = new PEmpleado();
             pe.UpdateEmpleado(dto);
-            addAccionEmpleado("Modificacion", DateTime.Now, user, null, null, null);
         }
 
-        public void BajaEmpleado(string docEmpleado)
+        public void DeleteEmpleado(string docEmpleado)
         {
             PEmpleado pe = new PEmpleado();
-            pe.BajaEmpleado(docEmpleado);
-            
+            pe.DeleteEmpleado(docEmpleado);
+        }
+        public void addAccionEmpleado(string tipoModificacion, DateTime fecha, string docEmpleado, int? avionId, int? vueloId, string abreviaturaAeropuerto)
+        {
+            DtoAccionEmpleado dto = new DtoAccionEmpleado(tipoModificacion, fecha, docEmpleado, avionId, vueloId, abreviaturaAeropuerto);
+            PEmpleado pe= new PEmpleado();
+            pe.addAccionEmpleado(dto);
         }
 
         public bool ValidarUser(string user)
@@ -93,8 +89,5 @@ namespace BusinessLogic.Helpers
             PEmpleado pe = new PEmpleado();
             return pe.ValidarUser(user);
         }
-
-
-
     }
 }

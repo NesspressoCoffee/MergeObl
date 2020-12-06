@@ -10,8 +10,8 @@ namespace DataAccess.Persistencia
 {
     public class PEmpleado
     {
-        public MEmpleado mapper;
         public MAccionEmpleado mapperAcciones;
+        public MEmpleado mapper;
 
         public PEmpleado()
         {
@@ -30,12 +30,12 @@ namespace DataAccess.Persistencia
             }
         }
 
-        public void BajaEmpleado(string docEmpleado)
+        public void DeleteEmpleado(string docEmpleado)
         {
             using (alasdbEntities context = new alasdbEntities())
             {
-                Empleado deshabilitarEmpleado = context.Empleado.FirstOrDefault(f => f.documentoEmpleado == docEmpleado);
-                deshabilitarEmpleado.disponible = false;
+                Empleado borrarEmpleado = context.Empleado.FirstOrDefault(f => f.documentoEmpleado == docEmpleado);
+                context.Empleado.Remove(borrarEmpleado);
                 context.SaveChanges();
             }
 
@@ -76,11 +76,8 @@ namespace DataAccess.Persistencia
             {
                 foreach (Empleado item in context.Empleado)
                 {
-                    if (item.disponible == true)
-                    {
-                        DtoEmpleado dto = mapper.MapToDto(item);
-                        listaEmp.Add(dto);
-                    }
+                    DtoEmpleado dto = mapper.MapToDto(item);
+                    listaEmp.Add(dto);
                 }
             }
             return listaEmp;
@@ -115,6 +112,15 @@ namespace DataAccess.Persistencia
             return dto;
         }
 
+        public void addAccionEmpleado(DtoAccionEmpleado dto)
+        {
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                context.AccionesEmpleados.Add(mapperAcciones.MapToObj(dto));
+                context.SaveChanges();
+            }
+        }
+
         public bool ValidarUser(string user)
         {
             bool existe = false;
@@ -127,16 +133,5 @@ namespace DataAccess.Persistencia
 
             return existe;
         }
-
-        public void addAccionEmpleado(DtoAccionEmpleado dto)
-        {
-            using (alasdbEntities context = new alasdbEntities())
-            {
-                context.AccionesEmpleados.Add(mapperAcciones.MapToObj(dto));
-                context.SaveChanges();
-            }
-        }
-
-
     }
 }

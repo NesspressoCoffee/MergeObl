@@ -24,7 +24,7 @@ namespace DataAccess.Persistencia
             using (alasdbEntities context = new alasdbEntities())
             {
                 List<Pasaje> pasajesBD = context.Pasaje.Where(w => w.vueloId == id).ToList();
-                foreach(Pasaje item in pasajesBD)
+                foreach (Pasaje item in pasajesBD)
                 {
                     pasajesVuelo.Add(mapper.MapToDto(item));
                 }
@@ -34,21 +34,5 @@ namespace DataAccess.Persistencia
         }
 
 
-        public void IngresarPasajes(List<DtoPasaje> pasajes)
-        {          
-            using (alasdbEntities context = new alasdbEntities())
-            {                
-                foreach (DtoPasaje item in pasajes)
-                {
-                    context.Pasaje.Add(mapper.MapToObj(item));
-                    context.SaveChanges();
-                }
-            }
-                       
-        }
-
-
-
-        
     }
 }

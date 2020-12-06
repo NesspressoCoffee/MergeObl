@@ -1,0 +1,227 @@
+﻿@model CommonSolutions.DTO.DtoAvion
+<link rel="stylesheet" href="~/Content/CSS/Aviones.css">
+
+@{
+    ViewBag.Title = "manAvion";
+}
+
+<h2>Aviones</h2>
+<p class="botonArriba">
+    <a class="botonArriba" href="@Url.Action("Admin", "Home")">Menu</a>
+    <a href="@Url.Action("LogOut", "Login")" class="notification">Salir</a>
+</p>
+<hr />
+
+@using (Html.BeginForm("addAvion", "Avion"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <h4>@Html.Raw(ViewBag.avionModify)</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.idAvion, new { htmlAttributes = new { @class = "form-control", id = "idAvion", @Value = 0, } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fechaIngreso, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.fechaIngreso, new { htmlAttributes = new { @class = "form-control", id = "FchIngreso", onchange = "saveDatos()" } })
+                @Html.ValidationMessageFor(model => model.fechaIngreso, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.horasTotales, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.horasTotales, new { htmlAttributes = new { @class = "form-control", id = "HrsTotales", onchange = "saveDatos()" } })
+                @Html.ValidationMessageFor(model => model.horasTotales, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.modelo, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control", id = "Modelo", onchange = "saveDatos()" } })
+                @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cantAsientos, htmlAttributes: new { @class = "control-label col-md-5" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.cantAsientos, new { htmlAttributes = new { @class = "form-control", id = "CantAsientos", onchange = "saveDatos()" } })
+                @Html.ValidationMessageFor(model => model.cantAsientos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.mensaje != null)
+{
+    <p class="text-danger">@Html.Raw(ViewBag.mensaje)</p>
+}
+@if (ViewBag.mensajeErrorCategoria != null)
+{
+    <p class="text-danger">@Html.Raw(ViewBag.mensajeErrorCategoria)</p>
+}
+@if (ViewBag.mensajeErrorDisponibilidad != null)
+{
+    <p class="text-danger">@Html.Raw(ViewBag.mensajeErrorDisponibilidad)</p>
+}
+
+@* FORMULARIO PARA LLENAR LISTA DE CATEGORIA DE ASIENTO EN SESION *@
+
+<div class="formCategorias">
+    <form id="addCategoriaToSessionForm" action="/Avion/addCategoriaToSession" method="Post">
+
+        <input name="destinoCat" id="destinoCat" style="display: none" />
+        <input type="number" class="inputRango" name="desde" />
+        <input type="number" class="inputRango" name="hasta" />
+        <select name="categoria">
+            <option>Economy</option>
+            <option>Premium Economy</option>
+            <option>Business</option>
+            <option>First Class</option>
+        </select>
+        <button type="submit" form="addCategoriaToSessionForm">+</button>
+
+    </form>
+
+    <div class="tablaCategoria">
+        <table>
+            <thead>
+                <tr>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Categoria</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tablaCategoria">
+                @if (ViewBag.listCategoria != null)
+                {
+                    foreach (var item in ViewBag.listCategoria)
+                    {
+                        <tr class="datos">
+                            <td>@item.desde</td>
+                            <td>@item.hasta</td>
+                            @if (item.categoria == "Premium Economy")
+                            {
+                                <td>Premium</td>
+
+                            }
+                            else
+                            {
+                                <td>@item.categoria</td>
+                            }
+                            <td>@Html.ActionLink("Borrar", "removeCategoriaFromSession", new { id = @item.id })</td>
+                        </tr>
+                    }
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+@* FORMULARIO PARA LLENAR LISTA DE DISPONIBILIDAD DE ASIENTO EN SESION *@
+
+<div class="formDisp">
+    <form id="addDisponibilidadToSessionForm" action="/Avion/addDisponibilidadToSession" method="Post">
+
+        <input name="destinoDisp" id="destinoDisp" value="hola" style="display: none" />
+        <input type="number" class="inputRango" name="desde" />
+        <input type="number" class="inputRango" name="hasta" />
+        <select name="disponibilidad">
+            <option>Si</option>
+            <option>No</option>
+        </select>
+        <button type="submit" form="addDisponibilidadToSessionForm">+</button>
+
+    </form>
+
+    <div class="tablaDisponibilidad">
+        <table>
+            <thead>
+                <tr>
+                    <th>Desde</th>
+                    <th>Hasta</th>
+                    <th>Disponible</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tablaDisponibilidad">
+                @if (ViewBag.listDisponibilidad != null)
+                {
+                    foreach (var item in ViewBag.listDisponibilidad)
+                    {
+                        <tr>
+                            <td>@item.desde</td>
+                            <td>@item.hasta</td>
+                            <td>@item.disponibilidadStr</td>
+                            <td>@Html.ActionLink("Borrar", "removeDisponibilidadFromSession", new { id = @item.id })</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<div class="tablaAvion">
+    <table>
+        <thead>
+            <tr>
+                <th class="tito">Numero de Avion</th>
+                <th class="tito">Fecha de Ingreso</th>
+                <th class="tito">Horas de Vuelo</th>
+                <th class="tito">Modelo</th>
+                <th class="tito">Asientos</th>
+                <th class="tito" colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla">
+            @if (ViewBag.colAvion != null)
+            {
+                foreach (var item in ViewBag.colAvion)
+                {
+                    <tr class="datos">
+                        <td>@item.idAvion</td>
+                        <td>@item.fechaIngreso.ToString("d")</td>
+                        <td>@item.horasTotales</td>
+                        <td>@item.modelo</td>
+                        <td>@item.cantAsientos</td>
+                        <td>@Html.ActionLink("Editar", "modifyAvionListButton", new { idAvion = @item.idAvion })</td>
+                        <td>@Html.ActionLink("Borrar", "deleteAvion", new { idAvion = @item.idAvion })</td>
+                    </tr>
+                }
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/AppScripts/manAvion.js"></script>
+}

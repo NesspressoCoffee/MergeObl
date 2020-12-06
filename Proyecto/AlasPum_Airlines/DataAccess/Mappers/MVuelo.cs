@@ -1,5 +1,4 @@
 ﻿using CommonSolutions.DTO;
-using DataAccess.Persistencia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace DataAccess.Mappers
 {
     public class MVuelo
     {
-        PPrecioCategoria pc = new PPrecioCategoria();
         public DtoVuelo MapToDto(Vuelo obj)
         {
             DtoVuelo dto = new DtoVuelo();
@@ -19,14 +17,14 @@ namespace DataAccess.Mappers
             dto.estado = obj.estado;
             dto.fechaLlegada = obj.fechaLlegada;
             dto.fechaSalida = obj.fechaSalida;
-            dto.fechaGrilla = obj.fechaSalida;
             dto.horasVuelo = obj.horasVuelo;
             dto.idVuelo = obj.idVuelo;
             dto.numeroVuelo = obj.numeroVuelo;
             dto.origen = obj.origen;
             dto.tipo = obj.tipo;
             dto.visa = obj.visa;
-          
+            dto.horaSalida = obj.fechaSalida;
+
             return dto;
         }
 
