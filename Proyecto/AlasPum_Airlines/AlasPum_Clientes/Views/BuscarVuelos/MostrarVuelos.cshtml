@@ -1,0 +1,381 @@
+﻿@model CommonSolutions.DTO.DtoVuelo
+
+@{
+    ViewBag.Title = "MostrarVuelos";
+}
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+
+</head>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-3">
+
+            @using (Html.BeginForm("MostrarVuelos", "BuscarVuelos"))
+            {
+                @Html.AntiForgeryToken() @Html.ValidationSummary(true, "")
+
+                <div class="container">
+                    <div class="row" style="width:200%">
+                        <div class="col-md-auto">
+                            <div class="panel panel-default">
+
+                                <div class="panel-body">
+                                    <form accept-charset="UTF-8" role="form">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.origen, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.origen, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.origen, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.destino, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.destino, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.destino, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div style="margin-left:4%">Solo ida:&nbsp;<input type="checkbox" id="solId" onclick="" checked />&nbsp; &nbsp;Ida y Vuelta:&nbsp;<input type="checkbox" id="idVuel" onclick="" /></div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.fechaSalida, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.fechaSalida, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.fechaSalida, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="llegadaDate" style="display: none;">
+                                                @Html.LabelFor(model => model.fechaLlegada, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.fechaLlegada, new { id = "F_llegada", htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.fechaLlegada, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.cantidadAsientos, new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.DropDownListFor(model => model.cantidadAsientos, (ICollection<SelectListItem>)ViewBag.asientus, "-- Selecciona --", new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.cantidadAsientos, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+
+                                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Buscar" style="background-color:lightskyblue; border-color:lightskyblue">
+
+                                        </fieldset>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+
+        </div>
+
+        <div class="col">
+            <h2>MostrarVuelos</h2>
+            <div class="container mb-3 mt-3">
+
+
+                <br />
+                @if (ViewBag.directFlights_Ida != null || ViewBag.escaleFlights_Ida != null || ViewBag.directFlights_IdaVuelta != null || ViewBag.escaleFlights_IdaVuelta != null)
+                {
+
+                    if (ViewBag.directFlights_Ida != null && ViewBag.directFlights_Ida.Count > 0)
+                    {
+                        <table class="display" id="tablaDVuelosIda" width="100%">
+                            <thead>
+                                <h2>Vuelos Directos</h2>
+
+
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        N° Vuelo
+                                    </th>
+                                    <th>
+                                        Origen
+                                    </th>
+                                    <th>
+                                        Destino
+                                    </th>
+                                    <th>
+                                        Duracion
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+
+                                </tr>
+
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in ViewBag.directFlights_Ida)
+                                {
+
+                                    <tr>
+
+                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)"><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">@item.numeroVuelo</td>
+                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">
+                                            @item.origen<p></p>
+                                            @item.fechaSalida.TimeOfDay
+                                        </td>
+                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">
+                                            @item.destino<p></p>
+                                            @item.fechaLlegada.TimeOfDay
+                                        </td>
+                                        <td onclick="mostrarDetalle(@item.idVuelo, @item.avionId)">@item.horasVuelo</td>
+
+                                        <td>
+                                            @item.estado <br />  <input id="botonGrilla" type="button" value="Mejorar Precio" onclick="location.href='@Url.Action("GrillaPreciosVuelo", "BuscarVuelos", item )'" />
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            </tbody>
+
+                        </table>
+                    }
+                    <br />
+                    <br />
+                    <hr />
+                    if (ViewBag.escaleFlights_Ida != null && ViewBag.escaleFlights_Ida.Count >= 0)
+                    {
+                        <br />
+                        <table class="display" id="tablaEscVuelosIda" width="100%">
+                            <thead>
+
+                                <h2>Vuelos con Escala</h2>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        N° Vuelo
+                                    </th>
+                                    <th>
+                                        Origen
+                                    </th>
+                                    <th>
+                                        Destino
+                                    </th>
+                                    <th>
+                                        Duracion
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in ViewBag.escaleFlights_Ida)
+                                {
+                                    <tr>
+                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                        <td>@item.numeroVuelo</td>
+                                        <td>
+                                            @item.origen<p></p>
+                                            @item.fechaSalida.TimeOfDay
+                                        </td>
+                                        <td>
+                                            @item.destino<p></p>
+                                            @item.fechaLlegada.TimeOfDay
+                                        </td>
+                                        <td>@item.horasVuelo</td>
+                                        <td>@item.estado</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+                    <br />
+                    <br />
+                    <hr />
+                    if (ViewBag.directFlights_IdaVuelta != null && ViewBag.directFlights_IdaVuelta.Count >= 0)
+                    {
+                        <br />
+                        <table class="display" id="tablaDVuelosIdaVuelta" width="100%">
+                            <thead>
+                                <h2>Vuelos Directos</h2>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        N° Vuelo
+                                    </th>
+                                    <th>
+                                        Origen
+                                    </th>
+                                    <th>
+                                        Destino
+                                    </th>
+                                    <th>
+                                        Duracion
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+
+                                @foreach (var item in ViewBag.directFlights_IdaVuelta)
+                                {
+                                    <tr>
+                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                        <td>@item.numeroVuelo</td>
+                                        <td>
+                                            @item.origen<p></p>
+                                            @item.fechaSalida.TimeOfDay
+                                        </td>
+                                        <td>
+                                            @item.destino<p></p>
+                                            @item.fechaLlegada.TimeOfDay
+                                        </td>
+                                        <td>@item.horasVuelo</td>
+                                        <td>@item.estado</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+                    <br />
+                    <br />
+                    <hr />
+                    if (ViewBag.escaleFlights_IdaVuelta != null && ViewBag.escaleFlights_IdaVuelta.Count >= 0)
+                    {
+                        <br />
+                        <table class="display" id="tablaEscVuelosIdaVuelta" width="100%">
+                            <thead>
+                                <h2>Vuelos con Escala</h2>
+                                <tr>
+                                    <th>
+
+                                    </th>
+                                    <th>
+                                        N° Vuelo
+                                    </th>
+                                    <th>
+                                        Origen
+                                    </th>
+                                    <th>
+                                        Destino
+                                    </th>
+                                    <th>
+                                        Duracion
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in ViewBag.escaleFlights_IdaVuelta)
+                                {
+                                    <tr>
+                                        <td><p>Desde U$S&nbsp;@item.precioCat.precioEconomy</p></td>
+                                        <td>@item.numeroVuelo</td>
+                                        <td>
+                                            @item.origen<p></p>
+                                            @item.fechaSalida.TimeOfDay
+                                        </td>
+                                        <td>
+                                            @item.destino<p></p>
+                                            @item.fechaLlegada.TimeOfDay
+                                        </td>
+                                        <td>@item.horasVuelo</td>
+                                        <td>@item.estado</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+                }
+
+                else
+                {
+                    <h1>Sin resultados</h1>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tablaDVuelosIda').DataTable();
+            $('#tablaEscVuelosIda').DataTable();
+            $('#tablaDVuelosIdaVuelta').DataTable();
+            $('#tablaEscVuelosIdaVuelta').DataTable();
+        });
+    </script>
+
+    <script>
+
+        function mostrarDetalle(idVuelo, avionId) {
+            
+            window.location.assign("/BuscarVuelos/DetallarVuelo?idVuelo=" + idVuelo + "&avionId=" + avionId);
+
+        };
+
+        $(function () {
+
+            $('#idVuel').change(function () {
+
+                $("#llegadaDate").show();
+                $('#solId').prop('checked', false);
+                $('#idVuel').prop('checked', true);
+
+            });
+
+            $('#solId').change(function () {
+
+                $("#llegadaDate").hide();
+                $('#idVuel').prop('checked', false);
+                $('#solId').prop('checked', true);
+            });
+
+        });
+
+
+    </script>
+
+}
+<style>
+    tr:hover td {
+        background: #808080;
+        cursor: pointer;
+    }
+</style>
