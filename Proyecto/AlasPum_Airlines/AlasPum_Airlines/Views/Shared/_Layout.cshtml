@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500">
+</head>
+<body>
+    <header>
+        <p style="float:right; font-size:20px; margin:15px 50px 0 0"><a href="@Url.Action("LogOut", "Login")" class="notification">Salir</a></p>
+        <div style="float:right; font-size:20px; margin:15px 25px 0 0">
+            <p>Bienvenido, @Session["Usuario"]!</p>
+        </div>
+    </header>
+    <div id="viewport">
+        <!-- Sidebar -->
+        <div id="sidebar">
+
+            <header>
+                <a href="https://localhost:44378/Home/Admin">P.A.P.A.S.O.<p>Aplication</p></a>
+
+            </header>
+            <br />
+
+            <ul class="nav">
+
+                <li>@Html.ActionLink("■ Panel Usuario", "AdminEmpleados", "Empleado")</li>
+                <br />
+                <li>@Html.ActionLink("■ Admin. de Flota", "manVuelo", "Vuelo")</li>
+                <br />
+                <li>@Html.ActionLink("■ Aeropuertos", "AltaAeropuerto", "Aeropuerto")</li>
+                <br />
+                <li>@Html.ActionLink("■ Vuelos", "manVuelo", "Vuelo")</li>
+                <br />
+                <li>@Html.ActionLink("■ Reportes", "VerReportes", "Reporte")</li>
+                <br />
+
+            </ul>
+
+        </div>
+    </div>
+
+
+
+    <div class="container body-content">
+        @RenderBody()
+        <br />
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - P.A.P.A.S.O. Aplication by AlasPum Airlines</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<style>
+
+
+    body {
+        height: 100%;
+        margin-top: -3.5%;
+        overflow-x: hidden;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        
+       
+    }
+
+
+
+    #viewport {
+        padding-left: 250px;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+
+
+    #sidebar {
+        z-index: 1000;
+        position: fixed;
+        left: 250px;
+        width: 180px;
+        height: 100%;
+        margin-left: -250px;
+        overflow-y: auto;
+        background: #37474F;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+
+        #sidebar header {
+            background-color: #263238;
+            font-size: 20px;
+            line-height: 20px;
+            margin-top: 5%;
+            text-align: center;
+        }
+
+            #sidebar header a {
+                color: #fff;
+                display: block;
+                text-decoration: none;
+            }
+
+                #sidebar header a:hover {
+                    color: #fff;
+                }
+
+
+
+        #sidebar .nav a {
+            background: none;
+            color: #CFD8DC;
+            font-size: 14px;
+            padding: 0 35px 0;
+        }
+
+    footer {
+        text-align: center;
+        text-shadow: 4px 4px 4px #d1cccc;
+    }
+
+    .btn-circle.btn-xl {
+        width: 40px;
+        height: 40px;
+        padding: 10px 16px;
+        border-radius: 25px;
+        border-color: black;
+        border-width: 3px;
+        font-size: 24px;
+        line-height: 1.33;
+        color: black;
+        float: right;
+        margin: 10px 10px 0 0;
+    }
+</style>
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e0f96aa4bbb34ac781e3c7a2cb2c23e1" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="alasdbModel.AccionesEmpleados" Width="1.5" PointX="8.25" PointY="6.25" />
+        <EntityTypeShape EntityType="alasdbModel.Aeropuerto" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="alasdbModel.Asiento" Width="1.5" PointX="3" PointY="9.125" />
+        <EntityTypeShape EntityType="alasdbModel.Avion" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="alasdbModel.Compra" Width="1.5" PointX="3" PointY="12.625" />
+        <EntityTypeShape EntityType="alasdbModel.Empleado" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="alasdbModel.HistoricoTasa" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="alasdbModel.Pasaje" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="alasdbModel.PrecioCategoria" Width="1.5" PointX="5.25" PointY="4.5" />
+        <EntityTypeShape EntityType="alasdbModel.Vuelo" Width="1.5" PointX="3" PointY="4" />
+        <AssociationConnector Association="alasdbModel.Fk_Acciones_Aeropuerto" />
+        <AssociationConnector Association="alasdbModel.Fk_Acciones_Avion" />
+        <AssociationConnector Association="alasdbModel.Fk_Acciones_Empleado" />
+        <AssociationConnector Association="alasdbModel.Fk_Acciones_Vuelo" />
+        <AssociationConnector Association="alasdbModel.Fk_Destino" />
+        <AssociationConnector Association="alasdbModel.Fk_HTasa_Aeropuerto" />
+        <AssociationConnector Association="alasdbModel.Fk_Origen" />
+        <AssociationConnector Association="alasdbModel.Fk_Asiento_Avion" />
+        <AssociationConnector Association="alasdbModel.Fk_Pasaje_Asiento" />
+        <AssociationConnector Association="alasdbModel.FK__PrecioCat__avion__44FF419A" />
+        <AssociationConnector Association="alasdbModel.Fk_Vuelo_Avion" />
+        <AssociationConnector Association="alasdbModel.Fk_Pasaje_Compra" />
+        <AssociationConnector Association="alasdbModel.Fk_Pasaje_Vuelo" />
+        <AssociationConnector Association="alasdbModel.FK__PrecioCat__vuelo__45F365D3" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

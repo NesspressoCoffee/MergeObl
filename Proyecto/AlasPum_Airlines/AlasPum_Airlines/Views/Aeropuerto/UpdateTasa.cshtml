@@ -1,0 +1,51 @@
+﻿@model CommonSolutions.DTO.DtoHistoricoTasa
+
+@{
+    ViewBag.Title = "UpdateTasaAero";
+
+}
+
+<form action="ModificarTasa" method="post" id="myForm">
+   
+        @Html.AntiForgeryToken()
+
+        <div class="container-fluid" style="margin:10% auto 0 3%">
+            <div class="row justify-content-center align-self-center">
+                <div class="col-lg-4 ">
+                    
+                        <h4 style="margin-left:8%">Modificar Tasa Actual</h4>
+                        <hr style="margin-left:-15%" />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.codigoAirport, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.codigoAirport, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.codigoAirport, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.tasaRegional, htmlAttributes: new { @class = "col-xs-2 col-form-label", style = "margin-left:3%" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.tasaRegional, new { htmlAttributes = new { @class = "form-control"} })
+                                @Html.ValidationMessageFor(model => model.tasaRegional, "", new { @class = "text-danger" })
+                            </div>
+
+                            @Html.LabelFor(model => model.tasaInter, htmlAttributes: new { @class = "col-xs-2 col-form-label", style = "margin-left:3%" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.tasaInter, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.tasaInter, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit">Confirmar</button>
+                        </div>
+                   
+                </div>
+            </div>
+        </div>
+   
+</form>
+
+

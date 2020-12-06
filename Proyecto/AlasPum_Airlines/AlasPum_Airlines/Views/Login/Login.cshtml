@@ -1,0 +1,75 @@
+﻿@model CommonSolutions.DTO.DtoLogin
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    
+
+</head>
+<body>
+
+    @using (Html.BeginForm("ValidarLogin", "Login"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "")
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="background-color:steelblue">
+                            <h3 class="panel-title" style="font-weight:bold; font-size:25px">Iniciar Sesión</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form accept-charset="UTF-8" role="form">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div>
+                                            @Html.EditorFor(model => model.documentoEmpleado, new { htmlAttributes = new { @class = "form-control", placeholder = "Documento" } })
+                                            @Html.ValidationMessageFor(model => model.documentoEmpleado, "", new { @class = "text-danger" })
+
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+
+                                            @Html.EditorFor(model => model.contrasenia, new { htmlAttributes = new { @class = "form-control", placeholder = "Contraseña" } })
+                                            @Html.ValidationMessageFor(model => model.contrasenia, "", new { @class = "text-danger" })
+                                            <p></p>
+                                            @Html.ValidationMessage("Contraseña", new { @class = "text-danger" })
+                                        </div>
+
+                                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Login" style="background-color:lightskyblue; border-color:lightskyblue">
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<style>
+
+    body {
+        text-align: center;
+        text-align-last: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 10%;
+    }
+</style>

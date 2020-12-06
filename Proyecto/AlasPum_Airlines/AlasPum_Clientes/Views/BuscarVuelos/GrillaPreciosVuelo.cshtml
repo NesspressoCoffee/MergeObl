@@ -1,0 +1,135 @@
+﻿@model CommonSolutions.DTO.DtoVuelo
+
+@{
+    ViewBag.Title = "GrillaPreciosVuelo";
+
+
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+@if (Model.numeroVuelo != null)
+{
+
+
+    <h2 style="margin:auto">Grilla de Vuelos </h2>
+    <br />
+    <div class="d-flex justify-content-center">
+        <a href="@Url.Action("MoverDiasGrilla", "BuscarVuelos", new { numVuelo = Model.numeroVuelo, fechaInicio = Model.fechaSalida.Date.AddDays(-7), fechaFin = Model.fechaLlegada })" class="previous round">&#8249;</a><span>IDA&nbsp;@Model.fechaSalida.Date.ToShortDateString()</span><a href="@Url.Action("MoverDiasGrilla", "BuscarVuelos", new { numVuelo = Model.numeroVuelo, fechaInicio = Model.fechaSalida.Date.AddDays(7), fechaFin = Model.fechaLlegada })" class="next round">&#8250;</a>
+    </div>
+    <div class="contenidoGrilla">
+        <div class="containerDates">
+            <div class="dates"> @Model.fechaSalida.Date.ToShortDateString() </div>
+            <div class="dates"> @Model.fechaSalida.Date.AddDays(1).ToShortDateString() </div>
+            <div class="dates"> @Model.fechaSalida.Date.AddDays(2).ToShortDateString() </div>
+            <div class="dates"> @Model.fechaSalida.Date.AddDays(3).ToShortDateString() </div>
+            <div class="dates"> @Model.fechaSalida.Date.AddDays(4).ToShortDateString() </div>
+            <div class="dates"> @Model.fechaSalida.Date.AddDays(5).ToShortDateString() </div>
+            <div class="dates"> @Model.fechaSalida.Date.AddDays(6).ToShortDateString() </div>
+        </div>
+
+        <div class="containerPrecios">
+            @foreach (var aux in ViewBag.preciosEconomy)
+            {
+                <div onclick="mostrarVuelos(@aux.idVuelo, 1)" class="item">U$S<br />@aux.precioCat.precioEconomy</div>
+            }
+
+
+        </div>
+    </div>
+}
+
+<style>
+
+    h2 {
+        text-align: center;
+    }
+
+    .contenidoGrilla {
+        border: 5px solid black;
+        width: 659.5px;
+        margin: auto;
+    }
+
+    .containerDates {
+        width: 650px;
+        height: 50px;
+        background-color: black;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .containerPrecios {
+        width: 650px;
+        height: 100px;
+        background-color: black;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+
+    .dates {
+        background-color: dimgrey;
+        color: black;
+        flex: none;
+        width: 13.42%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .item {
+        background-color: white;
+        color: black;
+        flex: none;
+        width: 13.42%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .item:hover {
+            background: #416981;
+        }
+
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
+
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    .previous {
+        background-color: #f1f1f1;
+        color: black;
+    }
+
+    .next {
+        background-color: #f1f1f1;
+        color: black;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+</style>
+@section scripts{
+    <script>
+
+        function mostrarVuelos(dtoVuelo, ida) {
+
+            window.location.assign("/BuscarVuelos/DireccionarAMuestra?pepe=" + dtoVuelo + "&tipo=" + ida);
+
+        };
+    </script>
+}

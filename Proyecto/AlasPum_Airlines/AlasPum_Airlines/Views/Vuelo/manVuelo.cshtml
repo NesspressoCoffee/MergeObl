@@ -1,0 +1,310 @@
+﻿@model CommonSolutions.DTO.DtoVuelo
+
+@{ ViewBag.Title = "manVuelo"; }
+
+<h2>manVuelo</h2>
+
+@using (Html.BeginForm("addVuelo", "Vuelo"))
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>DtoVuelo</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.numeroVuelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.numeroVuelo, new { htmlAttributes = new { @class = "form-control", id = "numeroVuelo", onchange = "saveDatos()" } })
+                            @Html.ValidationMessageFor(model => model.numeroVuelo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.horasVuelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.horasVuelo, new { htmlAttributes = new { @class = "form-control", id = "horasVuelo", onchange = "saveDatos()" } })
+                            @Html.ValidationMessageFor(model => model.horasVuelo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.origen, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.origen, (ICollection<SelectListItem>)ViewBag.listAeropuerto, "-   Origen   -", new { @class = "form-control", id = "origen", onchange = "saveDatos()" })
+                            @Html.ValidationMessageFor(model => model.origen, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.destino, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.destino, (ICollection<SelectListItem>)ViewBag.listAeropuerto, "-   Destino   -", new { @class = "form-control", id = "destino", onchange = "saveDatos()" })
+                            @Html.ValidationMessageFor(model => model.destino, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.avionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.avionId, new { htmlAttributes = new { @class = "form-control", id = "avionId", onchange = "saveDatos()" } })
+                            @Html.ValidationMessageFor(model => model.avionId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.visa, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.visa, new { htmlAttributes = new { id = "visa", onchange = "saveDatos()" } })
+                                @Html.ValidationMessageFor(model => model.visa, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.horaSalida, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.horaSalida, new { htmlAttributes = new { @class = "form-control", id = "horaSalida", onchange = "saveDatos()" } })
+                            @Html.ValidationMessageFor(model => model.horaSalida, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fechaComienzo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fechaComienzo, new { htmlAttributes = new { @class = "form-control", id = "fechaComienzo", onchange = "saveDatos()" } })
+                            @Html.ValidationMessageFor(model => model.fechaComienzo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.fechaLimite, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.fechaLimite, new { htmlAttributes = new { @class = "form-control", id = "fechaLimite", onchange = "saveDatos()" } })
+                            @Html.ValidationMessageFor(model => model.fechaLimite, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="dias">
+                        @if (ViewBag.diasVuelo != null)
+                        {
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Monday")
+                                {
+        <label>L</label><input type="checkbox" id="Monday" onchange="saveDia('Monday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>L</label><input type="checkbox" id="Monday" onchange="saveDia('Monday')" /> }
+                                }
+                            }
+
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Tuesday")
+                                {
+        <label>M</label><input type="checkbox" id="Tuesday" onchange="saveDia('Tuesday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>M</label><input type="checkbox" id="Tuesday" onchange="saveDia('Tuesday')" /> }
+                                }
+                            }
+
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Wednesday")
+                                {
+        <label>X</label><input type="checkbox" id="Wednesday" onchange="saveDia('Wednesday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>X</label><input type="checkbox" id="Wednesday" onchange="saveDia('Wednesday')" /> }
+                                }
+                            }
+
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Thursday")
+                                {
+        <label>J</label><input type="checkbox" id="Thursday" onchange="saveDia('Thursday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>J</label><input type="checkbox" id="Thursday" onchange="saveDia('Thursday')" /> }
+                                }
+                            }
+
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Friday")
+                                {
+        <label>V</label><input type="checkbox" id="Friday" onchange="saveDia('Friday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>V</label><input type="checkbox" id="Friday" onchange="saveDia('Friday')" /> }
+                                }
+                            }
+
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Saturday")
+                                {
+        <label>S</label><input type="checkbox" id="Saturday" onchange="saveDia('Saturday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>S</label><input type="checkbox" id="Saturday" onchange="saveDia('Saturday')" /> }
+                                }
+                            }
+
+                            for (int i = 0; i < ViewBag.diasVuelo.Count; i++)
+                            {
+                                if (ViewBag.diasVuelo[i] == "Sunday")
+                                {
+        <label>D</label><input type="checkbox" id="Sunday" onchange="saveDia('Sunday')" checked /> break;
+                                }
+                                else
+                                {
+                                    if (i == ViewBag.diasVuelo.Count - 1)
+                                    {
+        <label>D</label><input type="checkbox" id="Sunday" onchange="saveDia('Sunday')" /> }
+                                }
+                            }
+                        }
+                        else
+                        {
+        <label>L</label><input type="checkbox" id="Monday" onchange="saveDia('Monday')" />
+                            <label>M</label><input type="checkbox" id="Tuesday" onchange="saveDia('Tuesday')" />
+                                                <label>X</label><input type="checkbox" id="Wednesday" onchange="saveDia('Wednesday')" />
+                                                                    <label>J</label><input type="checkbox" id="Thursday" onchange="saveDia('Thursday')" />
+                                                                                        <label>V</label><input type="checkbox" id="Friday" onchange="saveDia('Friday')" />
+                                                                                                            <label>S</label><input type="checkbox" id="Saturday" onchange="saveDia('Saturday')" />
+                                                                                                                                <label>D</label><input type="checkbox" id="Sunday" onchange="saveDia('Sunday')" />}
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>}
+
+<form id="addHoraToSessionForm" action="/Vuelo/addFechaToSession" method="Post">
+
+    <input type="date" name="fecha" />
+    <input type="time" name="hora" id="horaExclusiva" />
+
+    <button type="submit" form="addHoraToSessionForm">+</button>
+    @if (ViewBag.mensajeErrorCategoria != null)
+        {
+            <p>@Html.Raw(ViewBag.mensajeErrorCategoria)</p>
+        }
+</form>
+
+<div class="tablaFechasExclusivas">
+    <table>
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tablaFechasExclusivas">
+            @if (ViewBag.listFechasExclusivas != null)
+            {
+                foreach (var item in ViewBag.listFechasExclusivas)
+                {
+<tr class="datos">
+    <td>@item.fecha.ToString("d")</td>
+    <td>@item.hora</td>
+    <td>@Html.ActionLink("x", "removeFechaFromSession", new { fecha = @item.fecha })</td>
+</tr>                }
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>function saveDia(dia) {
+
+
+        console.info("olis");
+        $.ajax({
+            url: "https://localhost:44378/Vuelo/saveDiaInSession?dataDia=" + dia,
+            type: 'POST',
+            dataType: 'json',
+            done: function () {
+
+                console.log("hola");
+            },
+        }
+
+        );
+    }
+
+   // $('#fechaComienzo').change(function () {
+   //     document.getElementById("tablaFechasExclusivas").innerHTML = "";
+   //});
+
+   //$('#fechaLimite').change(function () {
+   //    document.getElementById("tablaFechasExclusivas").innerHTML = "";
+   //});
+
+    function saveDatos() {
+
+
+        var DtoDatosVuelo = {};
+        DtoDatosVuelo.numeroVuelo = document.getElementById("numeroVuelo").value;
+        DtoDatosVuelo.horasVuelo = document.getElementById("horasVuelo").value;
+        DtoDatosVuelo.origen = document.getElementById("origen").value;
+        DtoDatosVuelo.destino = document.getElementById("destino").value;
+        DtoDatosVuelo.avionId = document.getElementById("avionId").value;
+        DtoDatosVuelo.visa = document.getElementById("visa").value;
+        DtoDatosVuelo.horaSalida = document.getElementById("horaSalida").value;
+        DtoDatosVuelo.fechaComienzo = document.getElementById("fechaComienzo").value;
+        DtoDatosVuelo.fechaLimite = document.getElementById("fechaLimite").value;
+
+        $.ajax({
+            url: "https://localhost:44378/Vuelo/saveDatosInSession",
+            type: 'POST',
+            dataType: 'json',
+            data: DtoDatosVuelo,
+            done: function () {
+
+                console.log("hola");
+            },
+        }
+
+        );
+    }</script>
+
+<style>
+    .dias {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>

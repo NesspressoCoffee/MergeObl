@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{13817A41-54E1-4317-A717-536CFAB1E2A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataAccess</RootNamespace>
+    <AssemblyName>DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccionesEmpleados.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Aeropuerto.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlasPum.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlasPum.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlasPum.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlasPum.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlasPum.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Asiento.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Avion.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Compra.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Empleado.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HistoricoTasa.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mappers\MAeropuerto.cs" />
+    <Compile Include="Mappers\MAccionEmpleado.cs" />
+    <Compile Include="Mappers\MAsiento.cs" />
+    <Compile Include="Mappers\MCompra.cs" />
+    <Compile Include="Mappers\MEmpleado.cs" />
+    <Compile Include="Mappers\MPasaje.cs" />
+    <Compile Include="Mappers\MPrecioCategoria.cs" />
+    <Compile Include="Mappers\MVuelo.cs" />
+    <Compile Include="Pasaje.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Persistencia\PAeropuerto.cs" />
+    <Compile Include="Persistencia\PAsiento.cs" />
+    <Compile Include="Persistencia\PCompra.cs" />
+    <Compile Include="Persistencia\PEmpleado.cs" />
+    <Compile Include="Persistencia\PPasaje.cs" />
+    <Compile Include="Persistencia\PPrecioCategoria.cs" />
+    <Compile Include="Persistencia\PVuelo.cs" />
+    <Compile Include="PrecioCategoria.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vuelo.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="AlasPum.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AlasPum.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="AlasPum.edmx.diagram">
+      <DependentUpon>AlasPum.edmx</DependentUpon>
+    </None>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonSolutions\CommonSolutions.csproj">
+      <Project>{88AF9480-24C5-4E41-A2A8-6E5E28A71B6F}</Project>
+      <Name>CommonSolutions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AlasPum.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AlasPum.edmx</DependentUpon>
+      <LastGenOutput>AlasPum.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="AlasPum.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AlasPum.edmx</DependentUpon>
+      <LastGenOutput>AlasPum.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
