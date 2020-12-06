@@ -17,7 +17,6 @@ namespace DataAccess.Mappers
             dto.apellidoEmpleado = obj.apellidoEmpleado;
             dto.contrasenia = obj.contrasenia;
             dto.enServicio = obj.disponible;
-
             return dto;
         }
 
@@ -29,7 +28,6 @@ namespace DataAccess.Mappers
             obj.apellidoEmpleado = dto.apellidoEmpleado;
             obj.contrasenia = dto.contrasenia;
             obj.disponible = true;
-        
             return obj;
         }
 

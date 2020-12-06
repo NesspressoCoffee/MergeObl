@@ -1,10 +1,6 @@
 ﻿@model CommonSolutions.DTO.DtoVuelo
 
-@{
-    ViewBag.Title = "Index";
-
-
-}
+@{ ViewBag.Title = "Index"; }
 
 <!DOCTYPE html>
 <html>
@@ -42,67 +38,66 @@
 
     @using (Html.BeginForm("MostrarVuelos", "BuscarVuelos"))
     {
-        @Html.AntiForgeryToken() @Html.ValidationSummary(true, "")
+@Html.AntiForgeryToken() @Html.ValidationSummary(true, "")
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="panel panel-default">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4">
+                            <div class="panel panel-default">
 
-                        <div class="panel-body">
-                            <form accept-charset="UTF-8" role="form">
-                                <fieldset>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.origen, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.origen, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.origen, "", new { @class = "text-danger" })
+                                <div class="panel-body">
+                                    <form accept-charset="UTF-8" role="form">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.origen, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.origen, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.origen, "", new { @class = "text-danger" })
 
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.destino, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.destino, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.destino, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div style="margin-left:4%">Solo ida:&nbsp;<input type="checkbox" id="solId" onclick="" checked />&nbsp; &nbsp;Ida y Vuelta:&nbsp;<input type="checkbox" id="idVuel" onclick="" /></div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.fechaSalida, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.fechaSalida, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.fechaSalida, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group" id="llegadaDate" style="display: none;">
-                                        @Html.LabelFor(model => model.fechaLlegada, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.fechaLlegada, new { id = "F_llegada", htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.fechaLlegada, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.cantidadAsientos, new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.DropDownListFor(model => model.cantidadAsientos, (ICollection<SelectListItem>)ViewBag.asientus, "-- Selecciona --", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.cantidadAsientos, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.destino, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.destino, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.destino, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div style="margin-left:4%">Solo ida:&nbsp;<input type="checkbox" id="solId" onclick="" checked />&nbsp; &nbsp;Ida y Vuelta:&nbsp;<input type="checkbox" id="idVuel" onclick="" /></div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.fechaSalida, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.fechaSalida, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.fechaSalida, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="llegadaDate" style="display: none;">
+                                                @Html.LabelFor(model => model.fechaLlegada, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.fechaLlegada, new { id = "F_llegada", htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.fechaLlegada, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.cantidadAsientos, new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.DropDownListFor(model => model.cantidadAsientos, (ICollection<SelectListItem>)ViewBag.asientus, "-- Selecciona --", new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.cantidadAsientos, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
 
 
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Buscar" style="background-color:lightskyblue; border-color:lightskyblue">
+                                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Buscar" style="background-color:lightskyblue; border-color:lightskyblue">
 
-                                </fieldset>
-                            </form>
+                                        </fieldset>
+                                    </form>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        </div>
-    }
+                </div>}
 
 </body>
 </html>
@@ -111,8 +106,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script>
-        $(function () {
+    <script>$(function () {
 
             $('#idVuel').change(function () {
 
@@ -129,10 +123,7 @@
                 $('#solId').prop('checked', true);
             });
 
-        });
-
-
-    </script>
+        });</script>
 
 
 }

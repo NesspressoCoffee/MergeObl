@@ -1,98 +1,136 @@
 ﻿@model CommonSolutions.DTO.DtoVuelo
 
-@{
-    ViewBag.Title = "DetallarVuelo";
-}
+@{ ViewBag.Title = "DetallarVuelo"; }
 
 <h2>DetallarVuelo</h2>
 
-@using (Html.BeginForm("FormularioCompra", "Compra"))
-{
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
+<div>
     <h4>DtoVuelo</h4>
     <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idVuelo)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.idVuelo)
+        </dd>
 
-    @Html.HiddenFor(model => model.idVuelo, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.HiddenFor(model => model.avionId, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.HiddenFor(model => model.visa, new { htmlAttributes = new { @class = "form-control" } })
-    @Html.HiddenFor(model => model.cantidadAsientos, new { htmlAttributes = new { @class = "form-control"} })
+        <dt>
+            @Html.DisplayNameFor(model => model.numeroVuelo)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.numeroVuelo)
+        </dd>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.numeroVuelo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.numeroVuelo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.numeroVuelo, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaSalida)
+        </dt>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.fechaSalida, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fechaSalida, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.fechaSalida, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.fechaSalida)
+        </dd>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.fechaLlegada, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fechaLlegada, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.fechaLlegada, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaLlegada)
+        </dt>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.horasVuelo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.horasVuelo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.horasVuelo, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.fechaLlegada)
+        </dd>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.horasVuelo)
+        </dt>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.origen, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.origen, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.origen, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.horasVuelo)
+        </dd>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.destino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.destino, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-            @Html.ValidationMessageFor(model => model.destino, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.categoria, new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.categoria, (ICollection<SelectListItem>)ViewBag.AsientosDispByCategoria, "-- Seleccione Categoria --", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.categoria, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.origen)
+        </dt>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Comprar" class="btn btn-default" />
-        </div>
-    </div>
+        <dd>
+            @Html.DisplayFor(model => model.origen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.destino)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.destino)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.avionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.avionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.visa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.visa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cantidadAsientos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cantidadAsientos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.horaSalida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.horaSalida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaComienzo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaComienzo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaLimite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaLimite)
+        </dd>
+
+    </dl>
 </div>
-}
-
-
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -14,10 +14,6 @@ namespace AlasPum_Airlines.Controllers
             return View();
         }
 
-        public ActionResult ModalPopUp()
-        {
-            return View();
-        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

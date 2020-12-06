@@ -12,7 +12,7 @@ namespace AlasPum_Clientes.Controllers
     {
         public ActionResult Index()
         {
-          
+
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "1", Value = "1" });
             items.Add(new SelectListItem { Text = "2", Value = "2" });
@@ -53,7 +53,12 @@ namespace AlasPum_Clientes.Controllers
         public ActionResult GetSearchValue(string search)
         {
             alasdbEntities db = new alasdbEntities();
-          
+            /* List<DtoAeropuerto> allsearch = db.Aeropuerto.Where(x => x.pais.Contains(search) || x.ciudad.Contains(search)).Select(x => new DtoAeropuerto
+             {
+                 ciudad = x.ciudad,
+                 pais = x.pais
+             }).ToList();
+            */
             var result = (from u in db.Aeropuerto.ToList() where u.pais.ToLower().Contains(search.ToLower()) || u.ciudad.ToLower().Contains(search.ToLower()) select new { value = u.ciudad, u.pais }
             );
 

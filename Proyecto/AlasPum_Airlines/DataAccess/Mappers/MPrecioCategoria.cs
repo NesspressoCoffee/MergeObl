@@ -13,7 +13,6 @@ namespace DataAccess.Mappers
         {
             DtoPrecioCategoria dto = new DtoPrecioCategoria();
 
-            dto.avionId = obj.avionId;
             dto.vueloId = obj.vueloId;
             dto.precioEconomy = obj.precioEconomy;
             dto.precioBusiness = obj.precioBusiness;
@@ -26,7 +25,6 @@ namespace DataAccess.Mappers
         public PrecioCategoria MapToObj(DtoPrecioCategoria dto)
         {
             PrecioCategoria obj = new PrecioCategoria();
-            obj.avionId = dto.avionId;
             obj.vueloId = dto.vueloId;
             obj.precioEconomy = dto.precioEconomy;
             obj.precioBusiness = dto.precioBusiness;

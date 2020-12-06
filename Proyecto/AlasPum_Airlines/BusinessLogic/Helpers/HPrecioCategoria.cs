@@ -26,8 +26,6 @@ namespace BusinessLogic.Helpers
 
             return instance;
         }
-
-
         public List<DtoVuelo> GetPreciosCategoriasByFecha(string numVuelo, DateTime fechaInicio)
         {
             PPrecioCategoria pp = new PPrecioCategoria();
@@ -38,6 +36,18 @@ namespace BusinessLogic.Helpers
         {
             PPrecioCategoria pp = new PPrecioCategoria();
             return pp.GetPreciosByIdVuelo(idVuelo);
+        }
+
+        public void addPrecioCategoria(List<DtoPrecioCategoria> listDto)
+        {
+            PPrecioCategoria pp = new PPrecioCategoria();
+            pp.addPrecioCategoria(listDto);
+        }
+
+        public void modifyPrecioCategoria(DtoPrecioCategoria dto)
+        {
+            PPrecioCategoria pp = new PPrecioCategoria();
+            pp.modifyPrecioCategoria(dto);
         }
     }
 }

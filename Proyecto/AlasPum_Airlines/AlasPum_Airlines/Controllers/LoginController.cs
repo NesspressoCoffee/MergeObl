@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Helpers;
+using BusinessLogic.Patrones;
 using CommonSolutions.DTO;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,13 @@ namespace AlasPum_Airlines.Controllers
     [Authorize]
     public class LoginController : Controller
     {
+        private Fachada fachada;
+
+        public LoginController()
+        {
+            fachada = new Fachada();
+        }
+
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -36,19 +44,20 @@ namespace AlasPum_Airlines.Controllers
         public ActionResult ValidarLogin(DtoLogin dto)
         {
 
-            if (ModelState.IsValid && HEmpleado.getInstance().LoginEmpleado(dto))
+            if (ModelState.IsValid && fachada.LoginEmpleado(dto))
             {
                 Session["User"] = dto.documentoEmpleado;
-                Session["Usuario"] = HEmpleado.getInstance().GetEmpleadoByDoc(dto.documentoEmpleado).nombreEmpleado;
+                Session["Usuario"] = fachada.GetEmpleadoByDoc(dto.documentoEmpleado).nombreEmpleado;
 
                 FormsAuthentication.SetAuthCookie(dto.documentoEmpleado, false);
 
                 return RedirectToAction("Admin", "Home");
 
-            } else if(ModelState.IsValid && HEmpleado.getInstance().GetEmpleadoByDoc(dto.documentoEmpleado).enServicio == false)
+            }
+            else if (ModelState.IsValid && fachada.GetEmpleadoByDoc(dto.documentoEmpleado).enServicio == false)
             {
                 ModelState.AddModelError("Contraseña", "Usuario deshabilitado!");
-            } 
+            }
             else
             {
                 ModelState.AddModelError("Contraseña", "Su usuario o contraseña son incorrectos!");
@@ -60,5 +69,3 @@ namespace AlasPum_Airlines.Controllers
 
     }
 }
-
-

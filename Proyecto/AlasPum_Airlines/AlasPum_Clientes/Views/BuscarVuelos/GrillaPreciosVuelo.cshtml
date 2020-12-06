@@ -1,10 +1,6 @@
 ﻿@model CommonSolutions.DTO.DtoVuelo
 
-@{
-    ViewBag.Title = "GrillaPreciosVuelo";
-
-
-}
+@{ ViewBag.Title = "GrillaPreciosVuelo"; }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -12,32 +8,30 @@
 {
 
 
-    <h2 style="margin:auto">Grilla de Vuelos </h2>
-    <br />
-    <div class="d-flex justify-content-center">
-        <a href="@Url.Action("MoverDiasGrilla", "BuscarVuelos", new { numVuelo = Model.numeroVuelo, fechaInicio = Model.fechaSalida.Date.AddDays(-7), fechaFin = Model.fechaLlegada })" class="previous round">&#8249;</a><span>IDA&nbsp;@Model.fechaSalida.Date.ToShortDateString()</span><a href="@Url.Action("MoverDiasGrilla", "BuscarVuelos", new { numVuelo = Model.numeroVuelo, fechaInicio = Model.fechaSalida.Date.AddDays(7), fechaFin = Model.fechaLlegada })" class="next round">&#8250;</a>
-    </div>
-    <div class="contenidoGrilla">
-        <div class="containerDates">
-            <div class="dates"> @Model.fechaSalida.Date.ToShortDateString() </div>
-            <div class="dates"> @Model.fechaSalida.Date.AddDays(1).ToShortDateString() </div>
-            <div class="dates"> @Model.fechaSalida.Date.AddDays(2).ToShortDateString() </div>
-            <div class="dates"> @Model.fechaSalida.Date.AddDays(3).ToShortDateString() </div>
-            <div class="dates"> @Model.fechaSalida.Date.AddDays(4).ToShortDateString() </div>
-            <div class="dates"> @Model.fechaSalida.Date.AddDays(5).ToShortDateString() </div>
-            <div class="dates"> @Model.fechaSalida.Date.AddDays(6).ToShortDateString() </div>
-        </div>
+<h2 style="margin:auto">Grilla de Vuelos </h2>
+                <br />
+                                <div class="d-flex justify-content-center">
+                                    <a href="@Url.Action("MoverDiasGrilla", "BuscarVuelos", new { numVuelo = Model.numeroVuelo, fechaInicio = Model.fechaSalida.Date.AddDays(-7), fechaFin = Model.fechaLlegada })" class="previous round">&#8249;</a><span>IDA&nbsp;@Model.fechaSalida.Date.ToShortDateString()</span><a href="@Url.Action("MoverDiasGrilla", "BuscarVuelos", new { numVuelo = Model.numeroVuelo, fechaInicio = Model.fechaSalida.Date.AddDays(7), fechaFin = Model.fechaLlegada })" class="next round">&#8250;</a>
+                                </div>
+                                                <div class="contenidoGrilla">
+                                                    <div class="containerDates">
+                                                        <div class="dates"> @Model.fechaSalida.Date.ToShortDateString() </div>
+                                                        <div class="dates"> @Model.fechaSalida.Date.AddDays(1).ToShortDateString() </div>
+                                                        <div class="dates"> @Model.fechaSalida.Date.AddDays(2).ToShortDateString() </div>
+                                                        <div class="dates"> @Model.fechaSalida.Date.AddDays(3).ToShortDateString() </div>
+                                                        <div class="dates"> @Model.fechaSalida.Date.AddDays(4).ToShortDateString() </div>
+                                                        <div class="dates"> @Model.fechaSalida.Date.AddDays(5).ToShortDateString() </div>
+                                                        <div class="dates"> @Model.fechaSalida.Date.AddDays(6).ToShortDateString() </div>
+                                                    </div>
 
-        <div class="containerPrecios">
-            @foreach (var aux in ViewBag.preciosEconomy)
-            {
-                <div onclick="mostrarVuelos(@aux.idVuelo, 1)" class="item">U$S<br />@aux.precioCat.precioEconomy</div>
-            }
+                                                    <div class="containerPrecios">
+                                                        @foreach (var aux in ViewBag.preciosEconomy)
+                                                        {
+                                        <div class="item">U$S<br />@aux.precioCat.precioEconomy</div>}
 
 
-        </div>
-    </div>
-}
+                                                    </div>
+                                                </div>}
 
 <style>
 
@@ -91,12 +85,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        cursor: pointer;
     }
-
-        .item:hover {
-            background: #416981;
-        }
 
     a {
         text-decoration: none;
@@ -123,13 +112,3 @@
         border-radius: 50%;
     }
 </style>
-@section scripts{
-    <script>
-
-        function mostrarVuelos(dtoVuelo, ida) {
-
-            window.location.assign("/BuscarVuelos/DireccionarAMuestra?pepe=" + dtoVuelo + "&tipo=" + ida);
-
-        };
-    </script>
-}

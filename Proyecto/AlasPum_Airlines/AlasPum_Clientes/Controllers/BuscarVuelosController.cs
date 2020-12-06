@@ -8,11 +8,18 @@ using System.Web.Mvc;
 using System.Web.Services;
 using System.Configuration;
 using DataAccess;
+using BusinessLogic.Patrones;
 
 namespace AlasPum_Clientes.Controllers
 {
     public class BuscarVuelosController : Controller
     {
+        private Fachada fachada;
+
+        public BuscarVuelosController()
+        {
+            fachada = new Fachada();
+        }
         // GET: BuscarVuelos
         public ActionResult Index()
         {
@@ -23,25 +30,11 @@ namespace AlasPum_Clientes.Controllers
 
         public ActionResult GrillaPreciosVuelo(DtoVuelo dto)
         {
-            List<DtoVuelo> precioCat = HPrecioCategoria.getInstance().GetPreciosCategoriasByFecha(dto.numeroVuelo, dto.fechaSalida);
-           
+            List<DtoVuelo> precioCat = fachada.GetPreciosCategoriasByFecha(dto.numeroVuelo, dto.fechaSalida);
+
             ViewBag.preciosEconomy = precioCat;
             return View(dto);
         }
-
-        public ActionResult DireccionarAMuestra(int pepe, int tipo)
-        {
-            DtoVuelo vueloEncontrado = HVuelo.getInstance().GetVueloCompleto(pepe);
-            DtoVuelo fr = vueloEncontrado;
-            if (tipo == 1)
-            {
-                DateTime dateTime = new DateTime(0001, 01, 01, 00, 00, 00);
-                fr.fechaLlegada = dateTime;
-            }
-
-            return RedirectToAction("MostrarVuelos", vueloEncontrado);
-        }
-
 
         public ActionResult MoverDiasGrilla(string numVuelo, DateTime fechaInicio, DateTime fechaFin)
         {
@@ -49,31 +42,32 @@ namespace AlasPum_Clientes.Controllers
             dto.numeroVuelo = numVuelo;
             dto.fechaSalida = fechaInicio;
             dto.fechaLlegada = fechaFin;
-
             return RedirectToAction("GrillaPreciosVuelo", dto);
         }
 
-
+        public ActionResult DetallarVuelo(int id)
+        {
+            fachada.GetVueloCompleto(id);
+            return View();
+        }
 
         public ActionResult MostrarVuelos(DtoVuelo dto)
         {
-            Session["AsientosDeseados"] = dto.cantidadAsientos;
-
             if (dto.fechaLlegada.Year == 1)
             {
 
-                List<DtoVuelo> directos_SoloIda = HVuelo.getInstance().VuelosDirectos_SoloIda(dto);
+                List<DtoVuelo> directos_SoloIda = fachada.VuelosDirectos_SoloIda(dto);
                 ViewBag.directFlights_Ida = directos_SoloIda;
-                List<DtoVuelo> escala_SoloIda = HVuelo.getInstance().VuelosEscala_Ida(dto);
+                List<DtoVuelo> escala_SoloIda = fachada.VuelosEscala_Ida(dto);
                 ViewBag.escaleFlights_Ida = escala_SoloIda;
 
             }
             else
             {
 
-                List<DtoVuelo> directos_IdaVuelta = HVuelo.getInstance().VuelosDirectos_IdaVuelta(dto);
+                List<DtoVuelo> directos_IdaVuelta = fachada.VuelosDirectos_IdaVuelta(dto);
                 ViewBag.directFlights_IdaVuelta = directos_IdaVuelta;
-                List<DtoVuelo> escala_IdaVuelta = HVuelo.getInstance().VuelosEscala_IdaVuelta(dto);
+                List<DtoVuelo> escala_IdaVuelta = fachada.VuelosEscala_IdaVuelta(dto);
                 ViewBag.escaleFlights_IdaVuelta = escala_IdaVuelta;
 
             }
@@ -97,9 +91,7 @@ namespace AlasPum_Clientes.Controllers
 
         public JsonResult Search(string term)
         {
-
-
-            List<DtoAeropuerto> lugares = HVuelo.getInstance().GetVuelosByLugar(term);
+            List<DtoAeropuerto> lugares = fachada.GetVuelosByLugar(term);
 
             return Json(lugares);
 
@@ -112,52 +104,5 @@ namespace AlasPum_Clientes.Controllers
             return View();
         }
 
-        #region
-        public ActionResult DetallarVuelo(int idVuelo, int avionId)
-        {
-            DtoVuelo vueloEncontrado = HVuelo.getInstance().GetVueloCompleto(idVuelo);
-
-            List<DtoAsiento> colAsientosDisponibles = HVuelo.getInstance().GetAsientosDisponibles(idVuelo, avionId);
-            List<DtoAsientosDispByCategoria> asientosByCategoria = new List<DtoAsientosDispByCategoria>();
-
-            foreach (DtoAsiento item in colAsientosDisponibles)
-            {
-                if (asientosByCategoria.Count != 0)
-                {
-                    foreach (DtoAsientosDispByCategoria aux in asientosByCategoria)
-                    {
-                        if (aux.categoria != item.categoria)
-                        {
-                            DtoAsientosDispByCategoria asientos = new DtoAsientosDispByCategoria();
-                            asientos.categoria = item.categoria;
-                            asientosByCategoria.Add(asientos);
-                        }
-
-                    }
-
-                }
-                else
-                {
-                    DtoAsientosDispByCategoria asientos = new DtoAsientosDispByCategoria();
-                    asientos.categoria = item.categoria;
-                    asientosByCategoria.Add(asientos);
-                }
-
-            }
-
-            List<SelectListItem> pepe = new List<SelectListItem>();
-            foreach (DtoAsientosDispByCategoria aux in asientosByCategoria)
-            {
-                SelectListItem item = new SelectListItem();
-                item.Text = aux.categoria;
-                item.Value = aux.categoria;
-                pepe.Add(item);
-
-            }
-            ViewBag.AsientosDispByCategoria = pepe;
-            return View(vueloEncontrado);
-        }
-
-        #endregion
     }
 }

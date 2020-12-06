@@ -1,0 +1,139 @@
+﻿<link rel="stylesheet" href="~/Content/CSS/Reportes.css">
+
+
+<div id="inputs">
+<h1>Reportes</h1>
+    <hr />
+    <form id="doReporteForm" action="/Reporte/doReporte" method="Post">
+        <input type="date" name="fechaDesde" class="fecha"/>
+        <input type="date" name="fechaHasta" class="fecha" />
+        <p>@Html.Raw(ViewBag.Error)</p>
+        <p><button type="submit" form="doReporteForm" class="submit">Crear Reportes</button></p>
+    </form>
+</div>
+
+@if (@ViewBag.PorcentajeOcupacion != null)
+{
+<div class="divForm">
+    <h2>Porcentaje de ocupacion de vuelos</h2>
+    <input class="lbl" value="%" />
+    <input type="text" readonly value="@ViewBag.PorcentajeOcupacion" />
+</div>
+}
+
+@if (@ViewBag.MasAsientosVacios != null)
+{
+<div class="divForm">
+    <h2>Vuelo con mas asientos libres</h2>
+    <div>
+        <input class="lbl" value="ID" />
+        <input type="text" id="idVueloM" name="idVueloM" value="@ViewBag.MasAsientosVacios.idVuelo" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Numero Vuelo" />
+        <input type="text" id="numVueloM" name="numVueloM" value="@ViewBag.MasAsientosVacios.numeroVuelo" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Avion" />
+        <input type="text" id="avionM" name="avionM" value="@ViewBag.MasAsientosVacios.avionId" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Origen" />
+        <input type="text" id="origenM" name="origenM" value="@ViewBag.MasAsientosVacios.origen" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Destino" />
+        <input type="text" id="destinoM" name="destinoM" value="@ViewBag.MasAsientosVacios.destino" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Tipo" />
+        <input type="text" id="tipoM" name="tipoM" value="@ViewBag.MasAsientosVacios.tipo" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Fecha Salida" />
+        <input type="text" id="salidaM" name="salidaM" value="@ViewBag.MasAsientosVacios.fechaSalida" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Fecha Llegada" />
+        <input type="text" id="llegadaM" name="llegadaM" value="@ViewBag.MasAsientosVacios.fechaLlegada" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Horas Vuelo" />
+        <input type="text" id="horasM" name="horasM" value="@ViewBag.MasAsientosVacios.horasVuelo" readonly />
+    </div>
+    <div>
+        <input class="lbl" value="Visa" />
+        <input type="text" id="visaM" name="visaM" value="@ViewBag.MasAsientosVacios.visa" readonly />
+    </div>
+</div>
+}
+
+@if (@ViewBag.MenosAsientosVacios != null)
+{
+    <div class="divForm">
+        <h2>Vuelo con menos asientos libres</h2>
+        <div>
+            <input class="lbl" value="ID"/>
+            <input type="text" id="idVueloM" name="idVueloM" value="@ViewBag.MenosAsientosVacios.idVuelo" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Numero Vuelo" />
+            <input type="text" id="numVueloM" name="numVueloM" value="@ViewBag.MenosAsientosVacios.numeroVuelo" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Avion" />
+            <input type="text" id="avionM" name="avionM" value="@ViewBag.MenosAsientosVacios.avionId" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Origen" />
+            <input type="text" id="origenM" name="origenM" value="@ViewBag.MenosAsientosVacios.origen" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Destino" />
+            <input type="text" id="destinoM" name="destinoM" value="@ViewBag.MenosAsientosVacios.destino" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Tipo"/>
+            <input type="text" id="tipoM" name="tipoM" value="@ViewBag.MenosAsientosVacios.tipo" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Fecha Salida" />
+            <input type="text" id="salidaM" name="salidaM" value="@ViewBag.MenosAsientosVacios.fechaSalida" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Fecha Llegada" />
+            <input type="text" id="llegadaM" name="llegadaM" value="@ViewBag.MenosAsientosVacios.fechaLlegada" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Horas Vuelo" />
+            <input type="text" id="horasM" name="horasM" value="@ViewBag.MenosAsientosVacios.horasVuelo" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Visa" />
+            <input type="text" id="visaM" name="visaM" value="@ViewBag.MenosAsientosVacios.visa" readonly />
+        </div>
+    </div>
+}
+
+@if (@ViewBag.Cliente != null)
+{
+    <div class="divForm">
+        <h2>Cliente con mas compras realizadas</h2>
+        <div>
+            <input class="lbl" value="Nro. Documento" />
+            <input type="text" name="documento" id="documento" value="@ViewBag.Cliente.documento" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Nombre" />
+            <input type="text" name="nombre" id="nombre" value="@ViewBag.Cliente.nombre" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Apellido" />
+            <input type="text" name="apellido" id="apellido" value="@ViewBag.Cliente.apellido" readonly />
+        </div>
+        <div>
+            <input class="lbl" value="Email" />
+            <input type="text" name="email" id="email" value="@ViewBag.Cliente.email" readonly />
+        </div>
+    </div>
+}

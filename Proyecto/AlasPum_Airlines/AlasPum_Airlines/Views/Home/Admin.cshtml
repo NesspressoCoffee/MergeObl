@@ -1,31 +1,26 @@
-﻿@{
-    ViewBag.Title = "Panel Administrador";
-}
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div id="welcome-content">
-        <h1>BIENVENIDO AL SISTEMA DE GESTION </h1>
-        <h1>DE ALAS PUM AIRLINES</h1>
-    </div>
-</body>
-</html>
-<style>
-    body {
-        background-image: url(../../Content/img/777.jpg);
-        background-repeat: no-repeat;
-        background-size: contain;
-      
-    }
+﻿<link
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/CSS/Home.css">
 
-    #welcome-content {
-        text-align: center;
-        font-family: 'Roboto', sans-serif;
-        text-shadow: 4px 4px 4px #d1cccc;
-        margin: 16% 0 27% 5%;
-    }
-</style>
+<h2>Papaso System</h2>
+<p class="botonArriba">
+    <a class="botonArriba" href="@Url.Action("Admin", "Home")">Menu</a>
+    <a href="@Url.Action("LogOut", "Login")" class="notification">Salir</a>
+</p>
+<hr />
+<div>
+    <a  href="@Url.Action("manAvion", "Avion")"><input class="boton" type="button" name="name" value="Aviones" /> </a>
+</div>
+<div>
+    <a  href="@Url.Action("AltaAeropuerto", "Aeropuerto")"><input class="boton" type="button" name="name" value="Aeropuertos" /></a>
+</div>
+<div>
+    <a  href="@Url.Action("manVuelo", "Vuelo")"> <input class="boton" type="button" name="name" value="Vuelos" /> </a>
+</div>
+<div>
+    <a  href="@Url.Action("viewReporte", "Reporte")"> <input class="boton" type="button" name="name" value="Reportes" /> </a>
+</div>
+<div>
+    <a  href="@Url.Action("AdminEmpleados", "Empleado")"> <input class="boton" type="button" name="name" value="Empleados" /> </a>
+</div>

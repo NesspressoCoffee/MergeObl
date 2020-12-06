@@ -1,183 +1,163 @@
 ﻿@model CommonSolutions.DTO.DtoAeropuerto
 
 
-@{
-    ViewBag.Title = "AltaAeropuerto";
-
-}
+@{ ViewBag.Title = "AltaAeropuerto"; }
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="~/Scripts/jquery-3.5.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/CSS/Aeropuertos.css" />
+
 </head>
 
-<h2 style="text-align: center; margin:5% 0 5% 5%">Admin. de Aeropuertos</h2>
+<h2>Aeropuertos</h2>
+<p class="botonArriba">
+    <a class="botonArriba" href="@Url.Action("Admin", "Home")">Menu</a>
+    <a href="@Url.Action("LogOut", "Login")" class="botonArriba">Salir</a>
+</p>
+<hr />
 
-<div class="container">
-    <div class="row" style="margin-left:10%">
-        <div class="col">
-
-
-            @using (Html.BeginForm("AgregarAeropuerto", "Aeropuerto"))
-            {
-                @Html.AntiForgeryToken()
-
-
-                <div class="form-horizontal">
-                    <h4>Alta de Aeropuerto</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.continente, htmlAttributes: new { @class = "control-label col-        -2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.continente, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.continente, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.pais, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.ciudad, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ciudad, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ciudad, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.abreviatura, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.abreviatura, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.abreviatura, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-
-                        @Html.LabelFor(model => model.tasa, htmlAttributes: new { @class = "col-xs-2 col-form-label", style = "margin-left:3%" })
-                        <br />
-                        <div style="margin-left:4%"><input type="checkbox" id="tasaReg" onclick="" />Regional&nbsp; &nbsp;<input type="checkbox" id="tasaInter" onclick="" />Intercontinental</div>
-                        <div class="col-md-10" id="inter" style="display: none;">
-                            @Html.EditorFor(model => model.historico.tasaInter, new { htmlAttributes = new { @class = "form-control", placeholder = "U$S" } })
-                            @Html.ValidationMessageFor(model => model.tasa, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-md-10" id="regi" style="display: none;">
-                            @Html.EditorFor(model => model.historico.tasaRegional, new { htmlAttributes = new { @class = "form-control", placeholder = "U$S" } })
-                            @Html.ValidationMessageFor(model => model.tasa, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="col-md-10" id="tas" style="margin:-16px 0 16.5px 0">
-                        @Html.EditorFor(model => model.tasa, new { htmlAttributes = new { @class = "form-control", placeholder = "U$S" } })
-                        @Html.ValidationMessageFor(model => model.tasa, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="submit" class="btn btn-light">Registrar</button>
-                        </div>
-                    </div>
-                </div>
+@using (Html.BeginForm("AgregarAeropuerto", "Aeropuerto"))
+{
+    @Html.AntiForgeryToken()
 
 
-            }
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.continente, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.continente, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.continente, "", new { @class = "text-danger" })
+            </div>
         </div>
-        <div class="col">
-            <div class="container mb-3 mt-3">
-                @if (ViewBag.colAeros != null)
-                {
-                    <table class="display" id="tablaAeros" width="100%">
-                        <thead>
 
-                            <tr>
+        <div class="form-group">
+            @Html.LabelFor(model => model.pais, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.pais, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.pais, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                                <th>Cod. IATA</th>
-                                <th>País</th>
-                                <th>Ciudad</th>
-                                <th>Estado</th>
-                                <th>Tarea</th>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ciudad, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ciudad, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ciudad, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                            </tr>
-                        </thead>
-                        <tbody>
+        <div class="form-group">
+            @Html.LabelFor(model => model.abreviatura, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.abreviatura, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.abreviatura, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
 
-                            @foreach (var item in ViewBag.colAeros)
-                            {
-                                <tr>
-                                    <td>@item.abreviatura</td>
-                                    <td>@item.pais</td>
-                                    <td>@item.ciudad</td>
-                                    <td>
-                                        @if (item.disponible)
-                                        {<div style="color:green">Habilitado</div>
+            @Html.LabelFor(model => model.tasa, htmlAttributes: new { @class = "col-xs-2 col-form-label lblTasa" })
+            <br />
+            <div style="margin-left:4%" class="checkTasas"><input type="checkbox" id="tasaReg" onclick="" />Regional&nbsp; &nbsp;<input type="checkbox" id="tasaInter" onclick="" />Intercontinental</div>
+            <div class="col-md-10 tasa" id="inter" style="display: none;">
+                @Html.EditorFor(model => model.historico.tasaInter, new { htmlAttributes = new { @class = "form-control", placeholder = "U$S" } })
+                @Html.ValidationMessageFor(model => model.tasa, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10 tasa" id="regi" style="display: none;">
+                @Html.EditorFor(model => model.historico.tasaRegional, new { htmlAttributes = new { @class = "form-control", placeholder = "U$S" } })
+                @Html.ValidationMessageFor(model => model.tasa, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-                                        }
-                                        else
-                                        {
-                                            <div style="color:red">Deshabilitado</div>
-                                        }
-                                    </td>
-                                    <td>
-
-                                        @if (item.disponible)
-                                        {
-                                            <a href="@Url.Action("DeshabilitarAero", "Aeropuerto", new { codigo = item.abreviatura })" class="btn btn-danger"> <i class="glyphicon glyphicon-off"></i></a>
-
-                                        }
-                                        else
-                                        {
-                                    <a href="@Url.Action("HabilitarAero", "Aeropuerto", new { codigo = item.abreviatura  })" class="btn btn-success"> <i class="glyphicon glyphicon-off"></i></a>
-                                        }
-
-                                        <a href="#" class="btn btn-success" onclick="ModificarTasa('@item.abreviatura')"> <i class="glyphicon glyphicon-pencil"></i></a>
-                                    </td>
-
-                                </tr>
-
-                            }
-
-                        </tbody>
-                    </table>
-                }
-
-                <input type="hidden" id="hiddenModificarTasa" />
-
-                <div class="modal fade" id="myModal">
-
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <a href="#" class="close" data-dismiss="modal">&times;</a>
-
-                            </div>
-                            <div class="modal-body" id="myModalBodyDiv">
-
-
-                            </div>
-                            
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">Registrar</button>
             </div>
         </div>
     </div>
+}
+
+@if (ViewBag.colAeros != null)
+{
+    <table class="display" id="tablaAeros" width="100%">
+        <thead>
+            <tr>
+                <th>Cod. IATA</th>
+                <th>País</th>
+                <th>Ciudad</th>
+                <th>Estado</th>
+                <th>Tarea</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.colAeros)
+            {
+                <tr>
+                    <td>@item.abreviatura</td>
+                    <td>@item.pais</td>
+                    <td>@item.ciudad</td>
+                    @if (item.disponible)
+                    {
+                        <td style="color: green">Habilitado</td>
+                    }
+                    else
+                    {
+                        <td style="color: darkred">Deshabilitado</td>
+                    }
+
+                    @if (item.disponible == true)
+                    {
+                        <td style="color: red">
+                            <a href="#" class="btn btn-success" onclick="ModificarTasa('@item.abreviatura')"> <i class="glyphicon glyphicon-pencil"></i></a>
+                            <a href="@Url.Action("DeshabilitarAero", "Aeropuerto", new { codigo = item.abreviatura })" class="btn btn-danger"> <i class="glyphicon glyphicon-off"></i></a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="@Url.Action("HabilitarAero", "Aeropuerto", new { codigo = item.abreviatura })" class="btn btn-success"> <i class="glyphicon glyphicon-off"></i></a>
+
+                        </td>
+
+                    }
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+<div class="modal fade" id="myModal">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 </div>
 
 
 @section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
     <script>
         $(document).ready(function () {
             $('#tablaAeros').DataTable();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CommonSolutions.DTO
 {
-   public class DtoHistoricoTasa
+    public class DtoHistoricoTasa
     {
         [DisplayName("Fecha de Alta")]
         public DateTime fecha { get; set; }

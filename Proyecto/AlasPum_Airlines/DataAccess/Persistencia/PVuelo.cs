@@ -17,6 +17,93 @@ namespace DataAccess.Persistencia
             this.mapper = new MVuelo();
         }
 
+        public void addVuelo(List<DtoVuelo> listDto)
+        {
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                foreach (DtoVuelo dto in listDto)
+                {
+                    context.Vuelo.Add(mapper.MapToObj(dto));
+                }
+                context.SaveChanges();
+            }
+        }
+        public void deleteVuelo(int idVuelo)
+        {
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                Vuelo vuelo = context.Vuelo.FirstOrDefault(f => f.idVuelo == idVuelo);
+                vuelo.estado = "Cancelado";
+                context.SaveChanges();
+            }
+        }
+        public List<DtoVuelo> getColVuelo()
+        {
+            List<DtoVuelo> col = new List<DtoVuelo>();
+
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                foreach (Vuelo item in context.Vuelo)
+                {
+                    DtoVuelo dto = mapper.MapToDto(item);
+                    col.Add(dto);
+                }
+            }
+            return col;
+        }
+        public DtoVuelo getVuelo(int idVuelo)
+        {
+            Vuelo vuelo = new Vuelo();
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                vuelo = context.Vuelo.Where(w => w.idVuelo == idVuelo).FirstOrDefault();
+                
+            }
+            return mapper.MapToDto(vuelo);
+        }
+
+        public void modifyVuelo(DtoVuelo dto)
+        {
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                Vuelo vuelo = context.Vuelo.Where(w => w.idVuelo == dto.idVuelo).FirstOrDefault();
+                vuelo.avionId = dto.avionId;
+                vuelo.destino = dto.destino;
+                vuelo.estado = dto.estado;
+                vuelo.fechaLlegada = dto.fechaLlegada;
+                vuelo.fechaSalida = dto.fechaSalida;
+                vuelo.horasVuelo = dto.horasVuelo;
+                vuelo.numeroVuelo = dto.numeroVuelo;
+                vuelo.origen = dto.origen;
+                vuelo.tipo = dto.tipo;
+                vuelo.visa = dto.visa;
+                context.SaveChanges();
+            }
+        }
+
+        public bool validarNumeroVuelo(string num)
+        {
+            bool ok;
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                ok = context.Vuelo.Any(a => a.numeroVuelo == num && a.estado != "Finalizado" && a.estado != "Cancelado");
+            }
+            if(ok == true)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public List<int> getIdsVueloByNumero(string num)
+        {
+            List<int> listId = new List<int>();
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                listId = context.Vuelo.Where(w => w.numeroVuelo == num && w.estado != "Finalizado" && w.estado != "Cancelado").Select(s => s.idVuelo).ToList();
+            }
+            return listId;
+        }
         public List<DtoVuelo> VuelosDirectos_SoloIda(DtoVuelo dto)
         {
             List<DtoVuelo> vuelosDirectos = new List<DtoVuelo>();
@@ -45,8 +132,6 @@ namespace DataAccess.Persistencia
 
             return vuelosDirectos;
         }
-
-
 
         public List<DtoVuelo> VuelosDirectos_IdaVuelta(DtoVuelo dto)
         {
@@ -168,20 +253,6 @@ namespace DataAccess.Persistencia
 
         }
 
-
-        public void addVuelo(List<DtoVuelo> listDto)
-        {
-            using (alasdbEntities context = new alasdbEntities())
-            {
-                foreach (DtoVuelo dto in listDto)
-                {
-                    context.Vuelo.Add(mapper.MapToObj(dto));
-                }
-                context.SaveChanges();
-
-            }
-        }
-
         public DtoVuelo GetVueloCompleto(int idVuelo)
         {
             DtoVuelo vueloCompleto = new DtoVuelo();
@@ -206,18 +277,16 @@ namespace DataAccess.Persistencia
                 {
                     if (item.fechaSalida >= fecha.AddDays(-3) || item.fechaSalida <= fecha.AddDays(3))
                     {
-                       
+
                         colVuelos.Add(mapper.MapToDto(item));
                     }
                 }
-               
+
                 colVuelos.OrderBy(o => o.fechaSalida);
             }
 
             return colVuelos;
         }
 
-
     }
 }
-

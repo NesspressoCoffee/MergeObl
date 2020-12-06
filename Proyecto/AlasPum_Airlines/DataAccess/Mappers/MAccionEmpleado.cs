@@ -12,7 +12,7 @@ namespace DataAccess.Mappers
         public DtoAccionEmpleado MapToDto(AccionesEmpleados obj)
         {
             DtoAccionEmpleado dto = new DtoAccionEmpleado();
-
+            dto.avionId = obj.avionId;
             dto.docEmpleado = obj.docEmpleado;
             dto.fecha = obj.fecha;
             dto.id = obj.id;

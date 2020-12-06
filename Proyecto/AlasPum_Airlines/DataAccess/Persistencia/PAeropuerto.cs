@@ -30,29 +30,6 @@ namespace DataAccess.Persistencia
             return existe;
         }
 
-        public List<DtoAeropuerto> GetLugares(string locacion)
-        {
-            List<DtoAeropuerto> aerosEncontrados = new List<DtoAeropuerto>();
-
-            using (alasdbEntities context = new alasdbEntities())
-            {
-                List<Aeropuerto> aeros = context.Aeropuerto.Select(s => s).ToList();
-
-                foreach (Aeropuerto item in aeros)
-                {
-                    if (item.ciudad.ToLower().Contains(locacion.ToLower()) || item.pais.ToLower().Contains(locacion.ToLower()))
-                    {
-
-                        DtoAeropuerto dto = mapper.MapToDto(item);
-                        aerosEncontrados.Add(dto);
-                    }
-                    
-                }
-            }
-
-            return aerosEncontrados;
-        }
-        
 
         public void AddAeropuerto(DtoAeropuerto dto)
         {
@@ -95,15 +72,15 @@ namespace DataAccess.Persistencia
         }
 
 
-        public void UpdateTasa(string codigo, double regional, double inter)
+        public void UpdateTasa(DtoHistoricoTasa dto)
         {
 
             using (alasdbEntities context = new alasdbEntities())
             {
                 HistoricoTasa tasaAero = new HistoricoTasa();
-                tasaAero.codigoAirport = codigo;
-                tasaAero.tasaIntercontinental = inter;
-                tasaAero.tasaRegional = regional;
+                tasaAero.codigoAirport = dto.codigoAirport;
+                tasaAero.tasaIntercontinental = dto.tasaInter;
+                tasaAero.tasaRegional = dto.tasaRegional;
                 tasaAero.fecha = DateTime.Now;
                 context.HistoricoTasa.Add(tasaAero);
                 context.SaveChanges();
@@ -159,7 +136,27 @@ namespace DataAccess.Persistencia
             return dto;
         }
 
+        public List<DtoAeropuerto> GetLugares(string locacion)
+        {
+            List<DtoAeropuerto> aerosEncontrados = new List<DtoAeropuerto>();
 
-        
+            using (alasdbEntities context = new alasdbEntities())
+            {
+                List<Aeropuerto> aeros = context.Aeropuerto.Select(s => s).ToList();
+
+                foreach (Aeropuerto item in aeros)
+                {
+                    if (item.ciudad.ToLower().Contains(locacion.ToLower()) || item.pais.ToLower().Contains(locacion.ToLower()))
+                    {
+
+                        DtoAeropuerto dto = mapper.MapToDto(item);
+                        aerosEncontrados.Add(dto);
+                    }
+
+                }
+            }
+
+            return aerosEncontrados;
+        }
     }
 }

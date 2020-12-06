@@ -1,6 +1,6 @@
 ﻿using BusinessLogic.Helpers;
+using BusinessLogic.Patrones;
 using CommonSolutions.DTO;
-using DataAccess.Persistencia;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +10,25 @@ using System.Windows.Forms;
 
 namespace AlasPum_Airlines.Controllers
 {
-    [Authorize]
+
     public class AeropuertoController : Controller
     {
-       
+        private Fachada fachada;
+
+        public AeropuertoController()
+        {
+            fachada = new Fachada();
+        }
         // GET: Aeropuerto
         [HttpGet]
         public ActionResult AltaAeropuerto()
         {
-            List<DtoAeropuerto> colAeros = HAeropuerto.getInstance().ListarAeros();
+            List<DtoAeropuerto> colAeros = fachada.ListarAeros();
             ViewBag.colAeros = colAeros;
 
             return View();
         }
 
-       
         public ActionResult AgregarAeropuerto(DtoAeropuerto dto)
         {
             if (dto.historico.tasaRegional == 0 || dto.historico.tasaInter == 0)
@@ -35,8 +39,8 @@ namespace AlasPum_Airlines.Controllers
             }
             else
             {
-                HAeropuerto.getInstance().AddAeropuerto(dto, Session["User"].ToString());
-                
+                fachada.AddAeropuerto(dto, Session["User"].ToString());
+
             }
 
             return RedirectToAction("AltaAeropuerto");
@@ -45,7 +49,7 @@ namespace AlasPum_Airlines.Controllers
         public ActionResult DeshabilitarAero(string codigo)
         {
 
-            HAeropuerto.getInstance().DeshabilitarAirport(codigo, Session["User"].ToString());
+            fachada.DeshabilitarAirport(codigo, Session["User"].ToString());
 
             return RedirectToAction("AltaAeropuerto");
         }
@@ -53,23 +57,23 @@ namespace AlasPum_Airlines.Controllers
         public ActionResult HabilitarAero(string codigo)
         {
 
-            HAeropuerto.getInstance().HabilitarAirport(codigo, Session["User"].ToString());
+            fachada.HabilitarAirport(codigo, Session["User"].ToString());
 
             return RedirectToAction("AltaAeropuerto");
         }
 
-        
+
         public ActionResult UpdateTasaParcial(string codigo)
         {
-          DtoHistoricoTasa dtoPartial = HAeropuerto.getInstance().GetTasaByCode(codigo);
+            DtoHistoricoTasa dtoPartial = fachada.GetTasaByCode(codigo);
             return PartialView("UpdateTasa", dtoPartial);
         }
-        
+
 
         [HttpPost]
         public ActionResult ModificarTasa(string codigoAirport, double tasaRegional, double tasaInter)
         {
-            HAeropuerto.getInstance().modificarTasa(codigoAirport, tasaRegional, tasaInter, Session["User"].ToString());
+            fachada.modificarTasa(codigoAirport, tasaRegional, tasaInter, Session["User"].ToString());
             return RedirectToAction("AltaAeropuerto");
         }
 
@@ -77,7 +81,7 @@ namespace AlasPum_Airlines.Controllers
 
         public JsonResult CodigoAvailable(string abreviatura)
         {
-            bool ok = HAeropuerto.getInstance().ValidarCodigo(abreviatura);
+            bool ok = fachada.ValidarCodigo(abreviatura);
 
             if (ok == true)
             {
@@ -90,6 +94,19 @@ namespace AlasPum_Airlines.Controllers
 
             return Json(ok, JsonRequestBehavior.AllowGet);
         }
+
+        #region - VALIDACIONES - 
+
+        public JsonResult ValidarDestino(string destino, string origen)
+        {
+            bool ok = true;
+            if (origen == destino)
+            {
+                ok = false;
+            }
+            return Json(ok, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
     }
 }

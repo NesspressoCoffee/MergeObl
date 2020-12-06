@@ -12,11 +12,11 @@ namespace CommonSolutions.DTO
     public class DtoEmpleado
     {
         [DisplayName("Documento: ")]
+        [Remote("UserAvailable", "Vuelo", ErrorMessage = "Ya existe un empleado con ese documento")]
         [Required(ErrorMessage = "El {0} es requerido!")]
         [StringLength(15, ErrorMessage = "El {0} no debe superar los {1} caracteres, y debe ser ingresado sin puntos ni guiones!")]
-        [Remote("UserAvailable", "Empleado", ErrorMessage = "Ya existe un usuario con ese Documento.")]
         public string documentoEmpleado { get; set; }
-        
+
         [DisplayName("Nombre: ")]
         [Required(ErrorMessage = "El {0} es requerido!")]
         [StringLength(20, ErrorMessage = "El {0} no debe superar los {1} caracteres.")]

@@ -31,17 +31,63 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.14.0.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.14.0\lib\net472\AngleSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CliWrap, Version=3.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CliWrap.3.2.1\lib\net461\CliWrap.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -86,28 +132,34 @@
     <Compile Include="HistoricoTasa.cs">
       <DependentUpon>AlasPum.tt</DependentUpon>
     </Compile>
-    <Compile Include="Mappers\MAeropuerto.cs" />
     <Compile Include="Mappers\MAccionEmpleado.cs" />
+    <Compile Include="Mappers\MAeropuerto.cs" />
     <Compile Include="Mappers\MAsiento.cs" />
-    <Compile Include="Mappers\MCompra.cs" />
+    <Compile Include="Mappers\MAvion.cs" />
     <Compile Include="Mappers\MEmpleado.cs" />
     <Compile Include="Mappers\MPasaje.cs" />
     <Compile Include="Mappers\MPrecioCategoria.cs" />
+    <Compile Include="Mappers\MVideo.cs" />
     <Compile Include="Mappers\MVuelo.cs" />
     <Compile Include="Pasaje.cs">
       <DependentUpon>AlasPum.tt</DependentUpon>
     </Compile>
     <Compile Include="Persistencia\PAeropuerto.cs" />
     <Compile Include="Persistencia\PAsiento.cs" />
-    <Compile Include="Persistencia\PCompra.cs" />
+    <Compile Include="Persistencia\PAvion.cs" />
     <Compile Include="Persistencia\PEmpleado.cs" />
     <Compile Include="Persistencia\PPasaje.cs" />
     <Compile Include="Persistencia\PPrecioCategoria.cs" />
+    <Compile Include="Persistencia\PReportes.cs" />
+    <Compile Include="Persistencia\PVideo.cs" />
     <Compile Include="Persistencia\PVuelo.cs" />
     <Compile Include="PrecioCategoria.cs">
       <DependentUpon>AlasPum.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VideoAvion.cs">
+      <DependentUpon>AlasPum.tt</DependentUpon>
+    </Compile>
     <Compile Include="Vuelo.cs">
       <DependentUpon>AlasPum.tt</DependentUpon>
     </Compile>
@@ -127,12 +179,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommonSolutions\CommonSolutions.csproj">
-      <Project>{88AF9480-24C5-4E41-A2A8-6E5E28A71B6F}</Project>
-      <Name>CommonSolutions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="AlasPum.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AlasPum.edmx</DependentUpon>
@@ -143,6 +189,12 @@
       <DependentUpon>AlasPum.edmx</DependentUpon>
       <LastGenOutput>AlasPum.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonSolutions\CommonSolutions.csproj">
+      <Project>{88AF9480-24C5-4E41-A2A8-6E5E28A71B6F}</Project>
+      <Name>CommonSolutions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
